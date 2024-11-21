@@ -10,7 +10,8 @@
     "format": "prettier --write .",
     "db:build": "node build-schemas.js",
     "db:migrate": "prisma migrate dev",
-    "db:deploy": "prisma migrate deploy"
+    "db:deploy": "prisma migrate deploy",
+    "postinstall": "yarn db:build && yarn db:deploy"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
