@@ -1,0 +1,4 @@
+model User {
+    uid String @unique @default(uuid())
+    registerAt DateTime @default(now())
+}
