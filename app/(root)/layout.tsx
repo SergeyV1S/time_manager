@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 
 import { Lora } from "next/font/google";
 
-import "./globals.css";
+import { Header } from "@/components/Header";
+
+import "../globals.css";
 
 const loraFont = Lora({
   subsets: ["latin"],
@@ -20,7 +22,10 @@ const RootLayout = ({
   children: React.ReactNode;
 }>) => (
   <html lang='ru'>
-    <body className={`${loraFont.variable} font-sans antialiased`}>{children}</body>
+    <body className={`${loraFont.variable} font-sans antialiased`}>
+      <Header />
+      {children}
+    </body>
   </html>
 );
 
