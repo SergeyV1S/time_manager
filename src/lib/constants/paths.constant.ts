@@ -1,6 +1,5 @@
 export const paths = {
-  SIGN_IN: "/sign-in",
-  SIGN_UP: "/sign-up",
+  AUTH: "/auth",
   PROFILE: "/profile",
   MY_STATISTIC: "/profile/my-statistic",
   TASKS: "/tasks",

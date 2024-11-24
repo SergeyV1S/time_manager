@@ -1,4 +1,23 @@
 import type { Config } from "tailwindcss";
+import TailwindAnimate from "tailwindcss-animate";
+import plugin from "tailwindcss/plugin";
+
+const tailwind3dTransformPlugin = plugin((pluginAPI) => {
+  pluginAPI.addUtilities({
+    ".backface-hidden": {
+      backfaceVisibility: "hidden"
+    },
+    ".perspective-1000": {
+      perspective: "1000px"
+    },
+    ".transform-style-3d": {
+      transformStyle: "preserve-3d"
+    },
+    ".rotate-y-180": {
+      transform: "rotateY(180deg)"
+    }
+  });
+});
 
 export default {
   darkMode: ["class"],
@@ -25,6 +44,5 @@ export default {
       }
     }
   },
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  plugins: [require("tailwindcss-animate")]
+  plugins: [TailwindAnimate, tailwind3dTransformPlugin]
 } satisfies Config;

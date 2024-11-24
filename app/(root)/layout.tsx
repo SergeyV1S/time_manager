@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 
 import { Lora } from "next/font/google";
 
-import { Header } from "@/components/Header";
-
 import "../globals.css";
+import { Header } from "./_components/Header";
 
 const loraFont = Lora({
   subsets: ["latin"],
@@ -13,7 +12,7 @@ const loraFont = Lora({
 
 export const metadata: Metadata = {
   title: "Time Manager",
-  description: "Excellent time manager for anyone!"
+  description: "Поможем вам правильно управлять своим временем!"
 };
 
 const RootLayout = ({
