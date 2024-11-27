@@ -13,7 +13,7 @@ export const FlipCard = ({ children }: IFlipCardProps) => {
   const [isFront, setIsFront] = useState(true);
 
   return (
-    <div className='size-[550px] group perspective-1000 rounded-3xl bg-transparent'>
+    <div className='w-[550px] h-[600px] group perspective-1000 rounded-3xl bg-transparent'>
       <div className={cn("relative h-full w-full transform-style-3d duration-500", isFront && "rotate-y-180")}>
         <div className='w-full h-full shadow-xl absolute rounded-3xl overflow-hidden p-10 backface-hidden'>
           {children[1]}

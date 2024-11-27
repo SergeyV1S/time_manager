@@ -8,10 +8,20 @@ datasource db {
 }
 
 model User {
-    uid String @unique @default(uuid())
+    uid String @unique @id @default(uuid())
     registerAt DateTime @default(now())
-    name String @unique
+    name String
+    surname String 
     mail String @unique
     password String
     isAdmin Boolean @default(false)
+    tasks Task[]
+}
+
+model Task {
+    uid String @unique @id @default(uuid())
+    createdAt DateTime @default(now())
+    body String
+    userUid  String
+    user User @relation(fields: [userUid], references: [uid])
 }

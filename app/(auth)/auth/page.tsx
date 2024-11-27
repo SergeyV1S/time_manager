@@ -5,8 +5,14 @@ import { SignUpForm } from "./_components/SignUpForm";
 const Auth = () => (
   <div className='w-full min-h-screen grid place-content-center'>
     <FlipCard>
-      <SignInForm />
-      <SignUpForm />
+      <div className='space-y-6'>
+        <h1 className='font-bold text-2xl text-center'>Авторизация</h1>
+        <SignInForm />
+      </div>
+      <div className='space-y-6'>
+        <h1 className='font-bold text-2xl text-center'>Регистрация</h1>
+        <SignUpForm />
+      </div>
     </FlipCard>
   </div>
 );
