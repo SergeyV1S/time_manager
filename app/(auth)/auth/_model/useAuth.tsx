@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+/* eslint-disable no-console */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { toast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";

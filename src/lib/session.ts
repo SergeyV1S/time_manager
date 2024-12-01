@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 "use server";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -5,6 +6,8 @@ import type { JWTPayload } from "jose";
 import { SignJWT, jwtVerify } from "jose";
 
 import { cookies } from "next/headers";
+
+/* eslint-disable no-console */
 
 interface ISessionPayload extends JWTPayload {
   uid: string;

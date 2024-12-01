@@ -1,0 +1,32 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: "production"
+      DATABASE_URL: "postgresql://postgres:12345@db:5432/time_manager"
+    depends_on:
+      - db
+    networks:
+      - my_network
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "12345"
+      POSTGRES_DB: "time_manager"
+    ports:
+      - "6000:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - my_network
+
+volumes:
+  db_data:
+
+networks:
+  my_network:
+    driver: bridge
