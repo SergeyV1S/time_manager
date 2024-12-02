@@ -5,7 +5,7 @@ import { compare } from "bcrypt";
 
 import { NextResponse } from "next/server";
 
-import type { TSignInRequest } from "../../../(auth)/auth/_lib/formSchemas";
+import type { TSignInRequest } from "../../../(auth)/auth/_types";
 
 export const POST = async (req: Request) => {
   try {

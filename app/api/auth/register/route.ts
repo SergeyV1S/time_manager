@@ -5,7 +5,7 @@ import { hash } from "bcrypt";
 
 import { NextResponse } from "next/server";
 
-import type { TRegisterRequest } from "../../../(auth)/auth/_lib/formSchemas";
+import type { TRegisterRequest } from "../../../(auth)/auth/_types";
 
 export const POST = async (req: Request) => {
   try {

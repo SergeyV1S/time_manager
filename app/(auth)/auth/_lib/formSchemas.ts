@@ -19,14 +19,3 @@ export const signUpFormSchema = signInFormSchema
     message: "Пароли не совпадают",
     path: ["confirmPassword"]
   });
-
-export type TSignInForm = z.infer<typeof signInFormSchema>;
-export type TSignUpForm = z.infer<typeof signUpFormSchema>;
-export type TRegisterRequest = Omit<TSignUpForm, "confirmPassword">;
-export type TSignInRequest = TSignInForm;
-export interface IAuthReasponse {
-  message: {
-    name: string;
-    isAdmin: boolean;
-  };
-}

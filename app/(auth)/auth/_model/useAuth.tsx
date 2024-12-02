@@ -9,8 +9,8 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { postSignIn, postSignUp } from "../_api";
-import type { TSignInForm, TSignUpForm } from "../_lib/formSchemas";
 import { signInFormSchema, signUpFormSchema } from "../_lib/formSchemas";
+import type { TSignInForm, TSignUpForm } from "../_types";
 
 export const useAuth = () => {
   const signInForm = useForm<TSignInForm>({
