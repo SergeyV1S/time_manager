@@ -12,7 +12,7 @@ const middleware = async (req: NextRequest) => {
   const cookie = (await cookies()).get("session")?.value;
   const session = await decrypt(cookie);
 
-  if (path !== paths.AUTH && !session?.uid) {
+  if (path !== paths.AUTH && !session) {
     return NextResponse.redirect(new URL(paths.AUTH, req.nextUrl));
   }
 
@@ -31,7 +31,7 @@ const middleware = async (req: NextRequest) => {
 };
 
 export const config = {
-  matcher: ["/((?!api/register|api/sign-in).*)"]
+  matcher: ["/((?!api/auth/register|api/auth/sign-in|_next/|static/).*)"]
 };
 
 export default middleware;
