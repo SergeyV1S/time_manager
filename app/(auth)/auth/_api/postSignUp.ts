@@ -1,5 +1,5 @@
 import { api } from "@/lib/api";
 
-import type { TRegisterRequest } from "../_lib/formSchemas";
+import type { IAuthReasponse, TRegisterRequest } from "../_lib/formSchemas";
 
-export const postSignUp = (data: TRegisterRequest) => api.post("/auth/register", data);
+export const postSignUp = async (data: TRegisterRequest) => api.post<IAuthReasponse>("/auth/register", data);

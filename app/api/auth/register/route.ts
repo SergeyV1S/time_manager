@@ -3,7 +3,6 @@ import db from "@/db";
 import { createSession } from "@/lib/session";
 import { hash } from "bcrypt";
 
-import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 
 import type { TRegisterRequest } from "../../../(auth)/auth/_lib/formSchemas";
@@ -25,8 +24,6 @@ export const POST = async (req: Request) => {
     const user = await db.user.create({ data: { ...body, password: hashPassword } });
 
     await createSession(user.uid, user.isAdmin, user.name);
-
-    redirect("/");
 
     return NextResponse.json({ message: { name: user.name, isAdmin: user.isAdmin } }, { status: 200 });
   } catch (error: unknown) {

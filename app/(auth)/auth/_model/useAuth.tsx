@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-/* eslint-disable no-console */
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { toast } from "@/hooks/use-toast";
+import { paths } from "@/lib/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { postSignUp } from "../_api/postSignUp";
+import { useRouter } from "next/navigation";
+
+import { postSignIn, postSignUp } from "../_api";
 import type { TSignInForm, TSignUpForm } from "../_lib/formSchemas";
 import { signInFormSchema, signUpFormSchema } from "../_lib/formSchemas";
 
@@ -31,6 +32,8 @@ export const useAuth = () => {
     }
   });
 
+  const router = useRouter();
+
   const signUp = async (data: TSignUpForm) => {
     try {
       const { mail, name, password, surname } = data;
@@ -40,11 +43,16 @@ export const useAuth = () => {
         password,
         surname
       });
-      console.log(result);
+
+      if (result.data.message.isAdmin) {
+        router.push(paths.ADMIN);
+      } else {
+        router.push("/"); // Временно
+      }
     } catch (error: any) {
       toast({
         className: "bg-red-800 text-white hover:bg-red-700",
-        title: "Ошибка авторизации",
+        title: "Ошибка регистрации",
         description: `${error.message}`
       });
     }
@@ -52,8 +60,12 @@ export const useAuth = () => {
 
   const signIn = async (data: TSignInForm) => {
     try {
-      // const result = await signInAction(data);
-      console.log("result");
+      const result = await postSignIn(data);
+      if (result.data.message.isAdmin) {
+        router.push(paths.ADMIN);
+      } else {
+        router.push("/"); // Временно
+      }
     } catch (error: any) {
       toast({
         className: "bg-red-800 text-white hover:bg-red-700",
