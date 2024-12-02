@@ -31,7 +31,7 @@ const middleware = async (req: NextRequest) => {
 };
 
 export const config = {
-  matcher: ["/((?!api/auth/register|api/auth/sign-in|_next/|static/).*)"]
+  matcher: ["/((?!api/auth/register|api/auth/sign-in|_next/|static/|$).*)"]
 };
 
 export default middleware;
