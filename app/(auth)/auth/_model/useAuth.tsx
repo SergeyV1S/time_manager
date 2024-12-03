@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { postSignIn, postSignUp } from "../_api";
+import { postLogout } from "../_api/postLogout";
 import { signInFormSchema, signUpFormSchema } from "../_lib/formSchemas";
 import type { TSignInForm, TSignUpForm } from "../_types";
 
@@ -75,5 +76,24 @@ export const useAuth = () => {
     }
   };
 
-  return { signInForm, signUpForm, signUp, signIn };
+  const logout = async () => {
+    try {
+      const result = await postLogout();
+
+      toast({
+        className: "bg-green-600 text-white hover:bg-green-500",
+        title: result.data.message
+      });
+
+      router.push(paths.AUTH);
+    } catch (error: any) {
+      toast({
+        className: "bg-red-800 text-white hover:bg-red-700",
+        title: "Ошибка авторизации",
+        description: `${error.response.data.message}`
+      });
+    }
+  };
+
+  return { signInForm, signUpForm, signUp, signIn, logout };
 };

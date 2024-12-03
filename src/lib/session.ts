@@ -8,7 +8,7 @@ import { SignJWT, jwtVerify } from "jose";
 
 import { cookies } from "next/headers";
 
-interface ISessionPayload extends JWTPayload {
+export interface ISessionPayload extends JWTPayload {
   uid: string;
   isAdmin: boolean;
   name: string;

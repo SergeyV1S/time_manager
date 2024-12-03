@@ -5,6 +5,7 @@ export const paths = {
   TASKS: "/tasks",
   EISENHOWER_MATRIX: "/eisenhower-matrix",
   CREATE_TASK: "/create-task",
+  SETTINGS: "/settings",
 
   ADMIN: "/admin",
   ADMIN_MANAGE_USERS: "/admin/manage-users"

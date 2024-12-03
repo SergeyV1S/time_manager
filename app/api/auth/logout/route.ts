@@ -1,18 +1,17 @@
 import { deleteSession } from "@/lib/session";
 
-import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 
-export const POST = () => {
+export const POST = async () => {
   try {
-    deleteSession();
-    redirect("/login");
+    await deleteSession();
 
-    return NextResponse.json({ message: "OK" }, { status: 200 });
+    return NextResponse.json({ message: "Вы успешно вышли из аккаунта!" }, { status: 200 });
   } catch (error: unknown) {
     if (error instanceof Error) {
       return NextResponse.json(error);
     }
+
     return NextResponse.json({ error: "Неизвестная ошибка сервера" }, { status: 500 });
   }
 };

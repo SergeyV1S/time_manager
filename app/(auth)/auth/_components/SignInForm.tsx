@@ -43,7 +43,7 @@ export const SignInForm = () => {
           className='w-full'
           type='submit'
         >
-          Зарегистрироваться
+          Авторизоваться
         </Button>
       </form>
     </Form>
