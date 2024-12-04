@@ -4,6 +4,7 @@
 import { toast } from "@/hooks/use-toast";
 import { paths } from "@/lib/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { useRouter } from "next/navigation";
@@ -14,6 +15,8 @@ import { signInFormSchema, signUpFormSchema } from "../_lib/formSchemas";
 import type { TSignInForm, TSignUpForm } from "../_types";
 
 export const useAuth = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const signInForm = useForm<TSignInForm>({
     resolver: zodResolver(signInFormSchema),
     defaultValues: {
@@ -36,6 +39,7 @@ export const useAuth = () => {
   const router = useRouter();
 
   const signUp = async (data: TSignUpForm) => {
+    setIsLoading(true);
     try {
       const { mail, name, password, surname } = data;
       const result = await postSignUp({
@@ -56,10 +60,13 @@ export const useAuth = () => {
         title: "Ошибка регистрации",
         description: `${error.message}`
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const signIn = async (data: TSignInForm) => {
+    setIsLoading(true);
     try {
       const result = await postSignIn(data);
       if (result.data.message.isAdmin) {
@@ -73,6 +80,8 @@ export const useAuth = () => {
         title: "Ошибка авторизации",
         description: `${error.response.data.message}`
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -95,5 +104,5 @@ export const useAuth = () => {
     }
   };
 
-  return { signInForm, signUpForm, signUp, signIn, logout };
+  return { signInForm, signUpForm, signUp, signIn, logout, isLoading };
 };

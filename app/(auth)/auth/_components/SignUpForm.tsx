@@ -1,13 +1,13 @@
 "use client";
 
-import { Button } from "@/components/ui";
+import { Button, Spinner } from "@/components/ui";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
 import { useAuth } from "../_model/useAuth";
 
 export const SignUpForm = () => {
-  const { signUpForm, signUp } = useAuth();
+  const { signUpForm, signUp, isLoading } = useAuth();
 
   return (
     <Form {...signUpForm}>
@@ -85,12 +85,13 @@ export const SignUpForm = () => {
             !signUpForm.formState.dirtyFields.name ||
             !signUpForm.formState.dirtyFields.mail ||
             !signUpForm.formState.dirtyFields.surname ||
-            !signUpForm.formState.dirtyFields.confirmPassword
+            !signUpForm.formState.dirtyFields.confirmPassword ||
+            isLoading
           }
-          className='w-full'
+          className='w-full relative'
           type='submit'
         >
-          Зарегистрироваться
+          {isLoading ? <Spinner /> : "Зарегистрироваться"}
         </Button>
       </form>
     </Form>

@@ -1,13 +1,13 @@
 "use client";
 
-import { Button } from "@/components/ui";
+import { Button, Spinner } from "@/components/ui";
 import { Input } from "@/components/ui";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 import { useAuth } from "../_model/useAuth";
 
 export const SignInForm = () => {
-  const { signInForm, signIn } = useAuth();
+  const { signInForm, signIn, isLoading } = useAuth();
 
   return (
     <Form {...signInForm}>
@@ -39,11 +39,11 @@ export const SignInForm = () => {
           )}
         />
         <Button
-          disabled={!signInForm.formState.dirtyFields.password || !signInForm.formState.dirtyFields.mail}
-          className='w-full'
+          disabled={!signInForm.formState.dirtyFields.password || !signInForm.formState.dirtyFields.mail || isLoading}
+          className='w-full relative'
           type='submit'
         >
-          Авторизоваться
+          {isLoading ? <Spinner /> : "Авторизоваться"}
         </Button>
       </form>
     </Form>
