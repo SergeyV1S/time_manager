@@ -16,7 +16,7 @@ const RootLayout = ({
   children: React.ReactNode;
 }>) => (
   <html lang='ru' suppressHydrationWarning>
-    <body className={`${loraFont.variable} font-sans antialiased`}>
+    <body className={`${loraFont.variable} bg-wgite dark:bg-slate-950 font-sans antialiased`}>
       <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
         {children}
         <Toaster />

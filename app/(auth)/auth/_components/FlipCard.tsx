@@ -15,7 +15,7 @@ export const FlipCard = ({ children }: IFlipCardProps) => {
   return (
     <div className='w-[550px] h-[600px] group perspective-1000 rounded-3xl bg-transparent'>
       <div className={cn("relative h-full w-full transform-style-3d duration-500", isFront && "rotate-y-180")}>
-        <div className='w-full h-full shadow-xl absolute rounded-3xl overflow-hidden p-10 backface-hidden'>
+        <div className='w-full h-full border border-slate-400 shadow-xl bg-white dark:bg-slate-950 dark:border dark:border-slate-800 absolute rounded-3xl overflow-hidden p-10 backface-hidden'>
           {children[1]}
           <div className='bottom-10 right-1/2 absolute translate-x-1/2 flex items-center text-xs gap-2'>
             <p>Уже есть аккаунт?</p>
@@ -28,7 +28,7 @@ export const FlipCard = ({ children }: IFlipCardProps) => {
             </Button>
           </div>
         </div>
-        <div className='absolute rotate-y-180 shadow-xl w-full h-full rounded-3xl p-10 bg-opacity-90 space-y-5 overflow-hidden backface-hidden'>
+        <div className='absolute rotate-y-180 border border-slate-400 shadow-xl w-full bg-white dark:bg-slate-950 dark:border dark:border-slate-800 h-full rounded-3xl p-10 bg-opacity-90 space-y-5 overflow-hidden backface-hidden'>
           {children[0]}
           <div className='bottom-10 right-1/2 absolute text-xs translate-x-1/2 flex items-center gap-2'>
             <p className='whitespace-nowrap'>Еще не зарегистрированы?</p>
