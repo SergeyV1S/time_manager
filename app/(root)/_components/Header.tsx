@@ -3,11 +3,12 @@ import { paths } from "@/lib/constants";
 import type { ISessionPayload } from "@/lib/session";
 import { decrypt } from "@/lib/session";
 import { LogoutButton } from "@app/(auth)/auth/_components/LogoutButton";
-import { ChartColumn, KeyRound, MoonIcon, Palette, Settings, SunIcon, TvIcon, UserIcon } from "lucide-react";
+import { ChartColumn, KeyRound, Settings, UserIcon } from "lucide-react";
 
 import { cookies } from "next/headers";
 import Link from "next/link";
 
+import { ThemeToggle } from "@/components/theme";
 import { Avatar, AvatarFallback, AvatarImage, buttonVariants } from "@/components/ui";
 import {
   DropdownMenu,
@@ -15,11 +16,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 
@@ -71,28 +68,7 @@ export const Header = async () => {
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                  <DropdownMenuSub>
-                    <DropdownMenuSubTrigger>
-                      <Palette /> Тема
-                    </DropdownMenuSubTrigger>
-                    <DropdownMenuPortal>
-                      <DropdownMenuSubContent>
-                        <DropdownMenuItem>
-                          <SunIcon />
-                          Светлая
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <MoonIcon />
-                          Тёмная
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                          <TvIcon />
-                          Системна
-                        </DropdownMenuItem>
-                      </DropdownMenuSubContent>
-                    </DropdownMenuPortal>
-                  </DropdownMenuSub>
+                  <ThemeToggle />
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <LogoutButton />

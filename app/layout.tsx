@@ -1,5 +1,6 @@
 import { Lora } from "next/font/google";
 
+import { ThemeProvider } from "@/components/theme";
 import { Toaster } from "@/components/ui";
 
 import "./globals.css";
@@ -14,10 +15,12 @@ const RootLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => (
-  <html lang='ru'>
+  <html lang='ru' suppressHydrationWarning>
     <body className={`${loraFont.variable} font-sans antialiased`}>
-      {children}
-      <Toaster />
+      <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+        {children}
+        <Toaster />
+      </ThemeProvider>
     </body>
   </html>
 );
