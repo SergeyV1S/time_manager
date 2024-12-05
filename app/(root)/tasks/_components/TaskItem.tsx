@@ -2,9 +2,13 @@ import { PencilIcon, TrashIcon } from "lucide-react";
 
 import { Button } from "@/components/ui";
 
-export const TaskItem = () => (
-  <div className='w-full grid grid-cols-[1fr_100px] items-center text-sm px-6 py-4'>
-    <p className='whitespace-nowrap flex items-center h-9'>Помыть посуду</p>
+interface ITaskItemProps {
+  body: string;
+}
+
+export const TaskItem = ({ body }: ITaskItemProps) => (
+  <div className='w-full grid grid-cols-[1fr_100px] items-center text-sm px-6 py-4 hover:bg-blue-50 dark:hover:bg-slate-900'>
+    <p className='whitespace-nowrap flex items-center h-9'>{body}</p>
     <div className='text-end space-x-2'>
       <Button variant='ghost' size='icon'>
         <PencilIcon />

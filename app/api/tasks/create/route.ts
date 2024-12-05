@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import db from "@/db";
+import { paths } from "@/lib/constants";
 import type { TCreateTaskForm } from "@app/(root)/tasks/_types";
 
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
@@ -15,6 +17,8 @@ export const POST = async (req: Request) => {
         userUid: body.userUid
       }
     });
+
+    revalidatePath(paths.TASKS);
 
     return NextResponse.json({ status: 200 });
   } catch (error: unknown) {

@@ -1,7 +1,7 @@
 import { Lora } from "next/font/google";
 
 import { ThemeProvider } from "@/components/theme";
-import { Toaster } from "@/components/ui";
+import { Toaster, TooltipProvider } from "@/components/ui";
 
 import "./globals.css";
 
@@ -17,10 +17,12 @@ const RootLayout = ({
 }>) => (
   <html lang='ru' suppressHydrationWarning>
     <body className={`${loraFont.variable} bg-wgite dark:bg-slate-950 font-sans antialiased`}>
-      <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
-        {children}
-        <Toaster />
-      </ThemeProvider>
+      <TooltipProvider>
+        <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+          {children}
+          <Toaster />
+        </ThemeProvider>
+      </TooltipProvider>
     </body>
   </html>
 );
