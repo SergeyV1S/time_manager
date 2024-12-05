@@ -5,6 +5,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 import { useCreateTask } from "../_model/useCreateTask";
+import { ETaskCategory } from "../_types";
 
 interface ICreateTaskFormProps {
   userUid: string;
@@ -42,10 +43,10 @@ export const CreateTaskForm = ({ userUid }: ICreateTaskFormProps) => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value='HOMEWORK'>Домашнии дела</SelectItem>
-                  <SelectItem value='STUDY'>Учёба</SelectItem>
-                  <SelectItem value='HOBBY'>Хобби</SelectItem>
-                  <SelectItem value='OCCUPATION'>Работа</SelectItem>
+                  <SelectItem value={ETaskCategory.HOMEWORK}>Домашнии дела</SelectItem>
+                  <SelectItem value={ETaskCategory.STUDY}>Учёба</SelectItem>
+                  <SelectItem value={ETaskCategory.HOBBY}>Хобби</SelectItem>
+                  <SelectItem value={ETaskCategory.OCCUPATION}>Работа</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />

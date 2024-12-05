@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { toast } from "@/hooks/use-toast";
-import { signInFormSchema } from "@app/(auth)/auth/_lib/formSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -8,16 +7,17 @@ import { useForm } from "react-hook-form";
 import { revalidatePath } from "next/cache";
 
 import { postCreateTask } from "../_api/postCreateTask";
+import { createTaskFormSchema } from "../_lib/createTaskFormSchema";
 import type { TCreateTaskForm } from "../_types";
 
 export const useCreateTask = (userUid: string) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const createTaskForm = useForm<TCreateTaskForm>({
-    resolver: zodResolver(signInFormSchema),
+    resolver: zodResolver(createTaskFormSchema),
     defaultValues: {
       body: "",
-      category: "",
+      category: undefined,
       userUid: userUid
     }
   });
