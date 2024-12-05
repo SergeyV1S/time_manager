@@ -19,10 +19,19 @@ model User {
     tasks Task[]
 }
 
+enum Task_Category {
+  OCCUPATION
+  HOBBY
+  STUDY
+  HOMEWORK
+}
+
 model Task {
     uid String @unique @id @default(uuid())
     createdAt DateTime @default(now())
     body String
     userUid  String
+    category Task_Category
     user User @relation(fields: [userUid], references: [uid])
 }
+
