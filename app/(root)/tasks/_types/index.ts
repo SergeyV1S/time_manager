@@ -8,9 +8,17 @@ export interface ICreateTaskResponse {
   status: number;
 }
 
+export interface ITask {
+  uid: string;
+  createdAt: Date;
+  body: string;
+  userUid: string;
+  category: ETaskCategory;
+}
+
 export enum ETaskCategory {
   OCCUPATION = "OCCUPATION",
   HOBBY = "HOBBY",
-  STUDY = "STUDY",
-  HOMEWORK = "HOMEWORK"
+  HOMEWORK = "HOMEWORK",
+  STUDY = "STUDY"
 }

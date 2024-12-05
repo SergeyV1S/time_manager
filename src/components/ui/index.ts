@@ -6,3 +6,5 @@ export * from "./toaster";
 export * from "./avatar";
 export * from "./spinner";
 export * from "./tooltip";
+export * from "./popover";
+export * from "./checkbox";
