@@ -4,11 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { revalidatePath } from "next/cache";
-
-import { postCreateTask } from "../_api/postCreateTask";
 import { createTaskFormSchema } from "../_lib/createTaskFormSchema";
 import type { TCreateTaskForm } from "../_types";
+import { createTaskAction } from "../action";
 
 export const useCreateTask = (userUid: string) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,15 +23,13 @@ export const useCreateTask = (userUid: string) => {
   const createTask = async (data: TCreateTaskForm) => {
     setIsLoading(true);
     try {
-      const result = await postCreateTask(data);
+      const result = await createTaskAction(data);
 
-      if (result.data.status === 200) {
+      if (result.status === 200) {
         toast({
           className: "bg-green-600 text-white hover:bg-green-500",
           title: "Задача успешно создана!"
         });
-
-        revalidatePath("/api/tasks");
       }
     } catch (error: any) {
       toast({

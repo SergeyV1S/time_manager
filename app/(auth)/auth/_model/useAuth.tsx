@@ -72,7 +72,7 @@ export const useAuth = () => {
       if (result.data.message.isAdmin) {
         router.push(paths.ADMIN);
       } else {
-        router.push("/"); // Временно
+        router.push(paths.TASKS);
       }
     } catch (error: any) {
       toast({

@@ -55,7 +55,7 @@ export const TasksWithFilter = ({ tasks, children }: ITasksWithFilterProps) => {
       </div>
       <div className='w-full max-w-[700px] divide-y divide-blue-300'>
         {filteredTasks.length > 0 ? (
-          filteredTasks.map((task) => <TaskItem body={task.body} key={task.uid} />)
+          filteredTasks.map((task) => <TaskItem body={task.body} taskUid={task.uid} key={task.uid} />)
         ) : (
           <div className='bg-blue-500 text-white dark:bg-blue-950 m-auto rounded-xl w-full max-w-fit'>
             <p className='px-4 py-2 text-sm'>Нет активных задач</p>
