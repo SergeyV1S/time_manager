@@ -14,7 +14,8 @@ export const DeleteTask = ({ taskUid }: IDeleteTaskProps) => (
   <Button
     variant='ghost'
     size='icon'
-    className='hover:bg-red-600 hover:dark:bg-red-600'
+    asChild
+    className='hover:bg-red-600 hover:dark:bg-red-600 size-8 p-2'
     onClick={() => deleteTaskAction(taskUid)}
   >
     <TrashIcon />

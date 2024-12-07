@@ -3,7 +3,18 @@
 import { translateCategory } from "@/lib/translateCategory";
 import { FilterIcon, FilterXIcon } from "lucide-react";
 
-import { Button, Checkbox, Label, Popover, PopoverContent, PopoverTrigger } from "@/components/ui";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  Button,
+  Checkbox,
+  Label,
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from "@/components/ui";
 
 import { useFilter } from "../_model/useFilter";
 import { ETaskCategory, type ITask } from "../_types";
@@ -55,7 +66,22 @@ export const TasksWithFilter = ({ tasks, children }: ITasksWithFilterProps) => {
       </div>
       <div className='w-full max-w-[700px] divide-y divide-blue-300'>
         {filteredTasks.length > 0 ? (
-          filteredTasks.map((task) => <TaskItem body={task.body} taskUid={task.uid} key={task.uid} />)
+          filteredTasks.map((task) =>
+            task.description ? (
+              <Accordion type='single' collapsible key={task.uid}>
+                <AccordionItem value='item-1'>
+                  <AccordionTrigger>
+                    <TaskItem body={task.body} taskUid={task.uid} />
+                  </AccordionTrigger>
+                  <AccordionContent>{task.description}</AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            ) : (
+              <div className='py-4' key={task.uid}>
+                <TaskItem body={task.body} taskUid={task.uid} />
+              </div>
+            )
+          )
         ) : (
           <div className='bg-blue-500 text-white dark:bg-blue-950 m-auto rounded-xl w-full max-w-fit'>
             <p className='px-4 py-2 text-sm'>Нет активных задач</p>

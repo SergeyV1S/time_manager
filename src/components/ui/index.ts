@@ -9,3 +9,4 @@ export * from "./tooltip";
 export * from "./popover";
 export * from "./checkbox";
 export * from "./accordion";
+export * from "./textarea";

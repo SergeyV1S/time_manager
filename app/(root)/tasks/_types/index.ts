@@ -14,6 +14,19 @@ export interface ITask {
   body: string;
   userUid: string;
   category: ETaskCategory;
+  description: string;
+  importance: ETaskImportance;
+  urgency: ETaskUrgency;
+}
+
+export enum ETaskImportance {
+  IMPORTANT = "IMPORTANT",
+  NO_MATTER = "NOMATTER"
+}
+
+export enum ETaskUrgency {
+  URGENTLY = "URGENTLY",
+  NO_TURGENTLY = "NOTURGENTLY"
 }
 
 export enum ETaskCategory {
