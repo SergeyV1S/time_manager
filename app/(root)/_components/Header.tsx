@@ -26,7 +26,7 @@ export const Header = async () => {
 
   return (
     <header className='border-b border-b-gray-400 py-4'>
-      <div className='container flex items-center justify-between'>
+      <div className='px-8 flex items-center justify-between'>
         <LogoIcon />
         <div className=''>
           {cookie ? (

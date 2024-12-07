@@ -26,12 +26,25 @@ enum Task_Category {
   HOMEWORK
 }
 
+enum Task_Importance {
+  IMPORTANT
+  NOMATTER
+}
+
+enum Task_Urgency {
+  URGENTLY
+  NOTURGENTLY
+}
+
 model Task {
     uid String @unique @id @default(uuid())
     createdAt DateTime @default(now())
     body String
-    userUid  String
+    description String
+    importance Task_Importance
+    urgency Task_Urgency
     category Task_Category
+    userUid  String
     user User @relation(fields: [userUid], references: [uid])
 }
 

@@ -8,3 +8,4 @@ export * from "./spinner";
 export * from "./tooltip";
 export * from "./popover";
 export * from "./checkbox";
+export * from "./accordion";
