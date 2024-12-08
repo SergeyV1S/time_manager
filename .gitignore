@@ -41,3 +41,5 @@ next-env.d.ts
 
 # migrations
 /prisma/migrations
+public/service-worker.js
+public/workbox-1*

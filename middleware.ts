@@ -31,7 +31,9 @@ const middleware = async (req: NextRequest) => {
 };
 
 export const config = {
-  matcher: ["/((?!api/auth/register|api/auth/sign-in|_next/|static/|$).*)"]
+  matcher: [
+    "/((?!api/auth/register|api/auth/sign-in|_next/|static/|favicon.ico|manifest.json|robots.txt|apple-touch-icon.png|web-app-manifest-192x192.png|web-app-manifest-512x512.png|sw.js).*)"
+  ]
 };
 
 export default middleware;
