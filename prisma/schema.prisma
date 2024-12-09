@@ -41,6 +41,7 @@ model Task {
     createdAt DateTime @default(now())
     body String
     description String
+    isComplete Boolean @default(false)
     importance Task_Importance
     urgency Task_Urgency
     category Task_Category
