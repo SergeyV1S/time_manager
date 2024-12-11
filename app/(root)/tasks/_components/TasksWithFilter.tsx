@@ -71,14 +71,16 @@ export const TasksWithFilter = ({ tasks, children }: ITasksWithFilterProps) => {
               <Accordion type='single' collapsible key={task.uid}>
                 <AccordionItem value='item-1'>
                   <AccordionTrigger>
-                    <TaskItem body={task.body} taskUid={task.uid} />
+                    <TaskItem isComplete={task.isComplete} body={task.body} taskUid={task.uid} />
                   </AccordionTrigger>
-                  <AccordionContent>{task.description}</AccordionContent>
+                  <AccordionContent className={task.isComplete ? "opacity-60" : ""}>
+                    {task.description}
+                  </AccordionContent>
                 </AccordionItem>
               </Accordion>
             ) : (
               <div className='py-4' key={task.uid}>
-                <TaskItem body={task.body} taskUid={task.uid} />
+                <TaskItem isComplete={task.isComplete} body={task.body} taskUid={task.uid} />
               </div>
             )
           )

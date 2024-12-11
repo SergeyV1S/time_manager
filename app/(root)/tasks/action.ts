@@ -39,3 +39,13 @@ export const deleteTaskAction = async (taskUid: string) => {
     return error;
   }
 };
+
+export const updateTaskStatusAction = async (taskUid: string, isComplete: boolean) => {
+  try {
+    await db.task.update({ data: { isComplete: isComplete }, where: { uid: taskUid } });
+
+    revalidatePath("/tasks");
+  } catch (error: any) {
+    return error;
+  }
+};

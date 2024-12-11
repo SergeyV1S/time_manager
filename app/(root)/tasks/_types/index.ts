@@ -13,6 +13,7 @@ export interface ITask {
   createdAt: Date;
   body: string;
   userUid: string;
+  isComplete: boolean;
   category: ETaskCategory;
   description: string;
   importance: ETaskImportance;
