@@ -15,8 +15,8 @@ interface ITaskItemProps {
 export const TaskItem = ({ body, taskUid, isComplete }: ITaskItemProps) => {
   const updateTaskStatus = async () => updateTaskStatusAction(taskUid, !isComplete);
 
-  const handleStopPropagation = (event: React.MouseEvent) => {
-    event.stopPropagation();
+  const handleStopPropagation = (e: React.MouseEvent) => {
+    e.stopPropagation();
   };
 
   return (

@@ -14,7 +14,10 @@ export const DeleteTask = ({ taskUid, ...props }: IDeleteTaskProps) => (
     size='icon'
     asChild
     className='hover:bg-red-600 hover:dark:bg-red-600 size-8 p-2 cursor-pointer'
-    onClick={() => deleteTaskAction(taskUid)}
+    onClick={(e) => {
+      e.stopPropagation();
+      deleteTaskAction(taskUid);
+    }}
     {...props}
   >
     <TrashIcon />

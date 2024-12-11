@@ -26,9 +26,10 @@ interface ITasksWithFilterProps {
 }
 
 export const TasksWithFilter = ({ tasks, children }: ITasksWithFilterProps) => {
-  const { filteres, filterByCategory, filterTask } = useFilter(tasks);
+  const { filteres, filterByStatus, filterByCategory, resetFilters, filterTask } = useFilter(tasks);
+  const filteredTasks = filterTask;
 
-  const filteredTasks = filterTask();
+  const isAnyFilterActive = filteres.category.length > 0 || filteres.isComplete !== null;
 
   return (
     <>
@@ -36,34 +37,61 @@ export const TasksWithFilter = ({ tasks, children }: ITasksWithFilterProps) => {
         <Popover>
           <PopoverTrigger asChild>
             <Button variant='ghost' size='icon' className='relative'>
-              {filteres.category.length > 0 ? <FilterXIcon /> : <FilterIcon />}
-              {filteres.category.length > 0 && (
+              {isAnyFilterActive ? <FilterXIcon /> : <FilterIcon />}
+              {isAnyFilterActive && (
                 <div className='absolute bottom-0 right-0 bg-red-600 size-4 flex items-center justify-center rounded-full'>
-                  <p className='text-white text-[10px]'>{filteres.category.length}</p>
+                  <p className='text-white text-[10px]'>
+                    {filteres.isComplete !== null ? filteres.category.length + 1 : filteres.category.length}
+                  </p>
                 </div>
               )}
             </Button>
           </PopoverTrigger>
-          <PopoverContent>
-            <div className='space-y-3 divide-y'>
-              <h3 className='text-center text-sm'>Категории</h3>
+          <PopoverContent className='space-y-3'>
+            <div className='divide-y'>
+              <h3 className='text-center text-sm pb-3'>Категории</h3>
               <div className='grid grid-cols-[1fr_90px] gap-y-2 pt-3'>
                 {Object.values(ETaskCategory).map((category) => (
-                  <div key={category} className='flex items-center gap-2 text-xs'>
+                  <div key={category} className='flex items-center gap-2'>
                     <Checkbox
                       id={category}
                       checked={filteres.category.includes(category)}
                       onCheckedChange={() => filterByCategory(category)}
                     />
-                    <Label htmlFor={category}>{translateCategory(category)}</Label>
+                    <Label htmlFor={category} className='text-xs'>
+                      {translateCategory(category)}
+                    </Label>
                   </div>
                 ))}
               </div>
             </div>
+
+            <div className='divide-y'>
+              <h3 className='text-center text-sm py-3'>Статус</h3>
+              <div className='space-y-2 pt-3'>
+                {[false, true].map((status, index) => (
+                  <div key={index} className='flex items-center gap-2'>
+                    <Checkbox
+                      id={index.toString()}
+                      checked={filteres.isComplete === status}
+                      onCheckedChange={() => filterByStatus(status)}
+                    />
+                    <Label htmlFor={index.toString()} className='text-xs'>
+                      {status ? "Выполненные" : "Невыполненные"}
+                    </Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <Button variant='ghost' size='sm' onClick={resetFilters} className='w-full mt-4'>
+              Сбросить все фильтры
+            </Button>
           </PopoverContent>
         </Popover>
         {children}
       </div>
+
       <div className='w-full max-w-[700px] divide-y divide-blue-300'>
         {filteredTasks.length > 0 ? (
           filteredTasks.map((task) =>
