@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 
 import { Lora } from "next/font/google";
 
-import { ThemeProvider } from "@/components/theme";
-import { Toaster, TooltipProvider } from "@/components/ui";
+import { Providers } from "@/components/Providers";
 
 import "./globals.css";
 
@@ -29,12 +28,7 @@ const RootLayout = ({
       <meta name='theme-color' content='#000000' />
     </head>
     <body className={`${loraFont.variable} bg-wgite dark:bg-slate-950 font-sans antialiased`}>
-      <TooltipProvider>
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
-          {children}
-          <Toaster />
-        </ThemeProvider>
-      </TooltipProvider>
+      <Providers>{children}</Providers>
     </body>
   </html>
 );

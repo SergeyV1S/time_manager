@@ -3,7 +3,7 @@ import { paths } from "@/lib/constants";
 import type { ISessionPayload } from "@/lib/session";
 import { decrypt } from "@/lib/session";
 import { LogoutButton } from "@app/(auth)/auth/_components/LogoutButton";
-import { ChartColumn, KeyRound, Settings, UserIcon } from "lucide-react";
+import { ChartColumn, ClipboardList, KeyRound, Settings, UserIcon } from "lucide-react";
 
 import { cookies } from "next/headers";
 import Link from "next/link";
@@ -44,6 +44,11 @@ export const Header = async () => {
                   <DropdownMenuItem>
                     <Link href={paths.PROFILE} className='flex items-center gap-2 rounded-sm text-sm outline-none'>
                       <UserIcon size={16} /> Мой профиль
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href={paths.TASKS} className='flex items-center gap-2 rounded-sm text-sm outline-none'>
+                      <ClipboardList size={16} /> Мои задачи
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>

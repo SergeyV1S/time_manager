@@ -47,10 +47,20 @@ export const useAuth = () => {
         surname
       });
 
+      if ("error" in result.data) {
+        toast({
+          className: "bg-red-800 text-white hover:bg-red-700",
+          title: "Ошибка авторизации",
+          description: `${result.data.error}`
+        });
+
+        return;
+      }
+
       if (result.data.message.isAdmin) {
         router.push(paths.ADMIN);
       } else {
-        router.push("/"); // Временно
+        router.push(paths.TASKS);
       }
     } catch (error: any) {
       toast({
@@ -67,7 +77,17 @@ export const useAuth = () => {
     setIsLoading(true);
     try {
       const result = await postSignIn(data);
-      if (result.data.message.isAdmin) {
+
+      if ("error" in result.data) {
+        toast({
+          className: "bg-red-800 text-white hover:bg-red-700",
+          title: "Ошибка авторизации",
+          description: `${result.data.error}`
+        });
+
+        return;
+      }
+      if (result.data?.message.isAdmin) {
         router.push(paths.ADMIN);
       } else {
         router.push(paths.TASKS);
@@ -76,7 +96,7 @@ export const useAuth = () => {
       toast({
         className: "bg-red-800 text-white hover:bg-red-700",
         title: "Ошибка авторизации",
-        description: `${error.response.data.message}`
+        description: `${error.response?.data || ""}`
       });
     } finally {
       setIsLoading(false);
