@@ -1,0 +1,56 @@
+name: CI
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run test
+        run: yarn test
+
+  lint:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run lint
+        run: yarn lint
+
+  format:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run formatter
+        run: yarn prettier .
+
+  # deploy:
+  #   needs: format
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/main'
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #       # - name: Install Ruby and gems
+  #       #   uses: ruby/setup-ruby@ee2113536afb7f793eed4ce60e8d3b26db912da4
+  #       with:
+  #         bundler-cache: true
+  #     - name: Run command on remote server
+  #       uses: D3rHase/ssh-command-action@latest
+  #       with:
+  #         host: ${{secrets.SSH_HOST}}
+  #         user: ${{secrets.SSH_USER}}
+  #         private_key: ${{secrets.SSH_PRIVATE_KEY}}
+  #         command: |
+  #           cd ${{ secrets.PROJECT_FOLDER }};
+  #           git checkout main;
+  #           git pull;
+  #           docker-compose --file docker-compose.prod.yml down;
+  #           docker-compose --file docker-compose.prod.yml up -d;
+  #           docker system prune --all --force;
