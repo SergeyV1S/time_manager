@@ -15,6 +15,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.12.0
+      - name: Install yarn
+        run: npm install -g yarn
       - name: Cache node modules
         uses: actions/cache@v3
         with:
@@ -26,6 +28,9 @@ jobs:
         run: yarn install
       - name: Run lint
         run: yarn lint
+      - name: Clean up
+        if: always()
+        run: npm uninstall -g yarn
 
   test:
     needs: lint
