@@ -1,6 +1,6 @@
 "use client";
 
-import { translateCategory } from "@/lib/translateCategory";
+import { translateCategory, translateImportance, translateUrgency } from "@/lib/translateCategory";
 import { FilterIcon, FilterXIcon } from "lucide-react";
 
 import {
@@ -10,6 +10,9 @@ import {
   AccordionTrigger,
   Button,
   Checkbox,
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
   Label,
   Popover,
   PopoverContent,
@@ -98,9 +101,18 @@ export const TasksWithFilter = ({ tasks, children }: ITasksWithFilterProps) => {
             task.description ? (
               <Accordion type='single' collapsible key={task.uid}>
                 <AccordionItem value='item-1'>
-                  <AccordionTrigger>
-                    <TaskItem isComplete={task.isComplete} body={task.body} taskUid={task.uid} />
-                  </AccordionTrigger>
+                  <HoverCard closeDelay={50} openDelay={200}>
+                    <AccordionTrigger>
+                      <HoverCardTrigger className='w-full'>
+                        <TaskItem isComplete={task.isComplete} body={task.body} taskUid={task.uid} />
+                      </HoverCardTrigger>
+                    </AccordionTrigger>
+                    <HoverCardContent className='grid grid-cols-2 grid-rows-2 gap-2 text-center py-2'>
+                      <p className='col-span-2 text-sm'>{translateCategory(task.category)}</p>
+                      <p>{translateUrgency(task.urgency)}</p>
+                      <p>{translateImportance(task.importance)}</p>
+                    </HoverCardContent>
+                  </HoverCard>
                   <AccordionContent className={task.isComplete ? "opacity-60" : ""}>
                     {task.description}
                   </AccordionContent>

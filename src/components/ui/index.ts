@@ -10,3 +10,4 @@ export * from "./popover";
 export * from "./checkbox";
 export * from "./accordion";
 export * from "./textarea";
+export * from "./hover-card";
