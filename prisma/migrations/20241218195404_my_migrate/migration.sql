@@ -30,6 +30,7 @@ CREATE TABLE "Task" (
     "importance" "Task_Importance" NOT NULL,
     "urgency" "Task_Urgency" NOT NULL,
     "category" "Task_Category" NOT NULL,
+    "position" INTEGER NOT NULL,
     "userUid" TEXT NOT NULL,
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("uid")

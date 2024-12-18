@@ -9,14 +9,15 @@ import { ETaskCategory, ETaskImportance, ETaskUrgency } from "../_types";
 
 interface ICreateTaskFormProps {
   userUid: string;
+  tasksLenght: number;
 }
 
-export const CreateTaskForm = ({ userUid }: ICreateTaskFormProps) => {
+export const CreateTaskForm = ({ userUid, tasksLenght }: ICreateTaskFormProps) => {
   const { createTask, createTaskForm, isLoading } = useCreateTask(userUid);
 
   return (
     <Form {...createTaskForm}>
-      <form onSubmit={createTaskForm.handleSubmit(createTask)} className='space-y-10 pt-5'>
+      <form onSubmit={createTaskForm.handleSubmit((data) => createTask(data, tasksLenght))} className='space-y-10 pt-5'>
         <FormField
           control={createTaskForm.control}
           name='body'

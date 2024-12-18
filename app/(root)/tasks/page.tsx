@@ -16,7 +16,7 @@ const TasksPage = async () => {
   const cookie = (await cookies()).get("session")?.value || "";
   const session = (await decrypt(cookie)) as unknown as ISessionPayload;
 
-  const tasks = (await db.task.findMany({ where: { userUid: session.uid }, orderBy: { createdAt: "asc" } })) as ITask[];
+  const tasks = (await db.task.findMany({ where: { userUid: session.uid }, orderBy: { position: "asc" } })) as ITask[];
 
   return (
     <main className='container flex min-h-svh flex-col items-center space-y-4 mt-20'>
@@ -31,7 +31,7 @@ const TasksPage = async () => {
             <DialogHeader>
               <DialogTitle>Создание задачи</DialogTitle>
             </DialogHeader>
-            <CreateTaskForm userUid={session.uid} />
+            <CreateTaskForm tasksLenght={tasks.length} userUid={session.uid} />
           </DialogContent>
         </Dialog>
       </TasksWithFilter>

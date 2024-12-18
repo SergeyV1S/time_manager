@@ -1,4 +1,7 @@
+import { DragIcon } from "@/icons";
 import { cn } from "@/lib/utils";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { Check, PencilIcon } from "lucide-react";
 
 import { Button, Label } from "@/components/ui";
@@ -19,14 +22,19 @@ export const TaskItem = ({ body, taskUid, isComplete }: ITaskItemProps) => {
     e.stopPropagation();
   };
 
+  const { listeners, setNodeRef, transform, transition } = useSortable({ id: taskUid });
+
   return (
     <div
+      ref={setNodeRef}
       className={cn(
         "w-full grid grid-cols-[1fr_100px] cursor-default items-center text-sm px-6 py-4 hover:bg-blue-50 dark:hover:bg-slate-900",
         isComplete && "opacity-60"
       )}
+      style={{ transform: CSS.Transform.toString(transform), transition }}
     >
-      <div className='flex items-center space-x-2'>
+      <div className='flex items-center space-x-2 relative'>
+        <DragIcon {...listeners} />
         <Label
           onClick={handleStopPropagation}
           htmlFor={taskUid}

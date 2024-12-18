@@ -1,6 +1,10 @@
 "use client";
 
+ 
 import { translateCategory, translateImportance, translateUrgency } from "@/lib/translateCategory";
+import type { DragEndEvent } from "@dnd-kit/core";
+import { DndContext } from "@dnd-kit/core";
+import { SortableContext } from "@dnd-kit/sortable";
 import { FilterIcon, FilterXIcon } from "lucide-react";
 
 import {
@@ -19,8 +23,10 @@ import {
   PopoverTrigger
 } from "@/components/ui";
 
+import { reorderTasks } from "../_lib/reorderTask";
 import { useFilter } from "../_model/useFilter";
 import { ETaskCategory, type ITask } from "../_types";
+import { updateTaskPositionAction } from "../action";
 import { TaskItem } from "./TaskItem";
 
 interface ITasksWithFilterProps {
@@ -31,11 +37,23 @@ interface ITasksWithFilterProps {
 export const TasksWithFilter = ({ tasks, children }: ITasksWithFilterProps) => {
   const { filteres, filterByStatus, filterByCategory, resetFilters, filterTask } = useFilter(tasks);
   const filteredTasks = filterTask;
-
   const isAnyFilterActive = filteres.category.length > 0 || filteres.isComplete !== null;
 
+  const onDragEndHandler = async (e: DragEndEvent) => {
+    if (e.active.id === e.over?.id) return;
+
+    const oldIndex = tasks.findIndex((task) => task.uid === e.active.id);
+    const newIndex = tasks.findIndex((task) => task.uid === e.over?.id);
+
+    if (oldIndex === -1 || newIndex === -1) return;
+
+    const reorderedTasks = reorderTasks(tasks, oldIndex, newIndex);
+
+    await updateTaskPositionAction(reorderedTasks);
+  };
+
   return (
-    <>
+    <DndContext onDragEnd={onDragEndHandler}>
       <div className='w-full max-w-[700px] flex items-center justify-end'>
         <Popover>
           <PopoverTrigger asChild>
@@ -97,39 +115,41 @@ export const TasksWithFilter = ({ tasks, children }: ITasksWithFilterProps) => {
 
       <div className='w-full max-w-[700px] divide-y divide-blue-300'>
         {filteredTasks.length > 0 ? (
-          filteredTasks.map((task) =>
-            task.description ? (
-              <Accordion type='single' collapsible key={task.uid}>
-                <AccordionItem value='item-1'>
-                  <HoverCard closeDelay={50} openDelay={200}>
-                    <AccordionTrigger>
-                      <HoverCardTrigger className='w-full'>
-                        <TaskItem isComplete={task.isComplete} body={task.body} taskUid={task.uid} />
-                      </HoverCardTrigger>
-                    </AccordionTrigger>
-                    <HoverCardContent className='grid grid-cols-2 grid-rows-2 gap-2 text-center py-2'>
-                      <p className='col-span-2 text-sm'>{translateCategory(task.category)}</p>
-                      <p>{translateUrgency(task.urgency)}</p>
-                      <p>{translateImportance(task.importance)}</p>
-                    </HoverCardContent>
-                  </HoverCard>
-                  <AccordionContent className={task.isComplete ? "opacity-60" : ""}>
-                    {task.description}
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            ) : (
-              <div className='py-4' key={task.uid}>
-                <TaskItem isComplete={task.isComplete} body={task.body} taskUid={task.uid} />
-              </div>
-            )
-          )
+          <SortableContext items={filteredTasks.map((task) => task.uid)}>
+            {filteredTasks.map((task) =>
+              task.description ? (
+                <Accordion type='single' collapsible key={task.uid}>
+                  <AccordionItem value='item-1'>
+                    <HoverCard closeDelay={50} openDelay={200}>
+                      <AccordionTrigger>
+                        <HoverCardTrigger className='w-full'>
+                          <TaskItem isComplete={task.isComplete} body={task.body} taskUid={task.uid} />
+                        </HoverCardTrigger>
+                      </AccordionTrigger>
+                      <HoverCardContent className='grid grid-cols-2 grid-rows-2 gap-2 text-center py-2'>
+                        <p className='col-span-2 text-sm'>{translateCategory(task.category)}</p>
+                        <p>{translateUrgency(task.urgency)}</p>
+                        <p>{translateImportance(task.importance)}</p>
+                      </HoverCardContent>
+                    </HoverCard>
+                    <AccordionContent className={task.isComplete ? "opacity-60" : ""}>
+                      {task.description}
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              ) : (
+                <div className='py-4' key={task.uid}>
+                  <TaskItem isComplete={task.isComplete} body={task.body} taskUid={task.uid} />
+                </div>
+              )
+            )}
+          </SortableContext>
         ) : (
           <div className='bg-blue-500 text-white dark:bg-blue-950 m-auto rounded-xl w-full max-w-fit'>
             <p className='px-4 py-2 text-sm'>Нет активных задач</p>
           </div>
         )}
       </div>
-    </>
+    </DndContext>
   );
 };

@@ -16,6 +16,7 @@ export interface ITask {
   isComplete: boolean;
   category: ETaskCategory;
   description: string;
+  position: number;
   importance: ETaskImportance;
   urgency: ETaskUrgency;
 }

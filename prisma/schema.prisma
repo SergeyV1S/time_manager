@@ -45,6 +45,7 @@ model Task {
     importance Task_Importance
     urgency Task_Urgency
     category Task_Category
+    position Int
     userUid  String
     user User @relation(fields: [userUid], references: [uid])
 }

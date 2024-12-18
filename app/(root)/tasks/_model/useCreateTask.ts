@@ -20,10 +20,10 @@ export const useCreateTask = (userUid: string) => {
     }
   });
 
-  const createTask = async (data: TCreateTaskForm) => {
+  const createTask = async (data: TCreateTaskForm, tasksLenght: number) => {
     setIsLoading(true);
     try {
-      const result = await createTaskAction(data);
+      const result = await createTaskAction(data, tasksLenght);
 
       if (result.status === 200) {
         toast({
