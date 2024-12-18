@@ -1,7 +1,6 @@
 "use client";
 
- 
-import { translateCategory, translateImportance, translateUrgency } from "@/lib/translateCategory";
+import { translateCategory } from "@/lib/translateCategory";
 import type { DragEndEvent } from "@dnd-kit/core";
 import { DndContext } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
@@ -14,9 +13,6 @@ import {
   AccordionTrigger,
   Button,
   Checkbox,
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
   Label,
   Popover,
   PopoverContent,
@@ -120,18 +116,9 @@ export const TasksWithFilter = ({ tasks, children }: ITasksWithFilterProps) => {
               task.description ? (
                 <Accordion type='single' collapsible key={task.uid}>
                   <AccordionItem value='item-1'>
-                    <HoverCard closeDelay={50} openDelay={200}>
-                      <AccordionTrigger>
-                        <HoverCardTrigger className='w-full'>
-                          <TaskItem isComplete={task.isComplete} body={task.body} taskUid={task.uid} />
-                        </HoverCardTrigger>
-                      </AccordionTrigger>
-                      <HoverCardContent className='grid grid-cols-2 grid-rows-2 gap-2 text-center py-2'>
-                        <p className='col-span-2 text-sm'>{translateCategory(task.category)}</p>
-                        <p>{translateUrgency(task.urgency)}</p>
-                        <p>{translateImportance(task.importance)}</p>
-                      </HoverCardContent>
-                    </HoverCard>
+                    <AccordionTrigger>
+                      <TaskItem {...task} />
+                    </AccordionTrigger>
                     <AccordionContent className={task.isComplete ? "opacity-60" : ""}>
                       {task.description}
                     </AccordionContent>
@@ -139,7 +126,7 @@ export const TasksWithFilter = ({ tasks, children }: ITasksWithFilterProps) => {
                 </Accordion>
               ) : (
                 <div className='py-4' key={task.uid}>
-                  <TaskItem isComplete={task.isComplete} body={task.body} taskUid={task.uid} />
+                  <TaskItem {...task} />
                 </div>
               )
             )}
