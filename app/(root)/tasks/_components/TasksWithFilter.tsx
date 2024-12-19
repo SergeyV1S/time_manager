@@ -2,8 +2,8 @@
 
 import { translateCategory } from "@/lib/translateCategory";
 import type { DragEndEvent } from "@dnd-kit/core";
-import { DndContext } from "@dnd-kit/core";
-import { SortableContext } from "@dnd-kit/sortable";
+import { DndContext, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { FilterIcon, FilterXIcon } from "lucide-react";
 
 import {
@@ -48,8 +48,10 @@ export const TasksWithFilter = ({ tasks, children }: ITasksWithFilterProps) => {
     await updateTaskPositionAction(reorderedTasks);
   };
 
+  const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor));
+
   return (
-    <DndContext onDragEnd={onDragEndHandler}>
+    <DndContext onDragEnd={onDragEndHandler} sensors={sensors}>
       <div className='w-full max-w-[700px] flex items-center justify-end'>
         <Popover>
           <PopoverTrigger asChild>
@@ -111,7 +113,7 @@ export const TasksWithFilter = ({ tasks, children }: ITasksWithFilterProps) => {
 
       <div className='w-full max-w-[700px] divide-y divide-blue-300'>
         {filteredTasks.length > 0 ? (
-          <SortableContext items={filteredTasks.map((task) => task.uid)}>
+          <SortableContext strategy={verticalListSortingStrategy} items={filteredTasks.map((task) => task.uid)}>
             {filteredTasks.map((task) =>
               task.description ? (
                 <Accordion type='single' collapsible key={task.uid}>

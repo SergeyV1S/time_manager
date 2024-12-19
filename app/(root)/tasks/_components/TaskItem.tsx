@@ -18,7 +18,7 @@ export const TaskItem = ({ uid, body, category, isComplete, urgency, importance 
     e.stopPropagation();
   };
 
-  const { listeners, setNodeRef, transform, transition } = useSortable({ id: uid });
+  const { listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: uid });
 
   return (
     <div
@@ -30,7 +30,7 @@ export const TaskItem = ({ uid, body, category, isComplete, urgency, importance 
       style={{ transform: CSS.Transform.toString(transform), transition }}
     >
       <div className='flex items-center space-x-2 relative'>
-        <DragIcon {...listeners} />
+        <DragIcon {...listeners} className={isDragging ? "cursor-grabbing" : "cursor-grab"} />
         <HoverCard closeDelay={50} openDelay={200}>
           <HoverCardTrigger className='w-full'>
             <Label
