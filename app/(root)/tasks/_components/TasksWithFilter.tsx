@@ -1,10 +1,13 @@
 "use client";
 
+import { paths } from "@/lib/constants";
 import { translateCategory } from "@/lib/translateCategory";
 import type { DragEndEvent } from "@dnd-kit/core";
 import { DndContext, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { FilterIcon, FilterXIcon } from "lucide-react";
+import { FilterIcon, FilterXIcon, Grid2X2Icon } from "lucide-react";
+
+import Link from "next/link";
 
 import {
   Accordion,
@@ -16,7 +19,11 @@ import {
   Label,
   Popover,
   PopoverContent,
-  PopoverTrigger
+  PopoverTrigger,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  buttonVariants
 } from "@/components/ui";
 
 import { reorderTasks } from "../_lib/reorderTask";
@@ -53,19 +60,37 @@ export const TasksWithFilter = ({ tasks, children }: ITasksWithFilterProps) => {
   return (
     <DndContext onDragEnd={onDragEndHandler} sensors={sensors}>
       <div className='w-full max-w-[700px] flex items-center justify-end'>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link href={paths.EISENHOWER_MATRIX} className={buttonVariants({ variant: "ghost", size: "icon" })}>
+              <Grid2X2Icon />
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Матрица Эйзенхауэра</p>
+          </TooltipContent>
+        </Tooltip>
+
         <Popover>
-          <PopoverTrigger asChild>
-            <Button variant='ghost' size='icon' className='relative'>
-              {isAnyFilterActive ? <FilterXIcon /> : <FilterIcon />}
-              {isAnyFilterActive && (
-                <div className='absolute bottom-0 right-0 bg-red-600 size-4 flex items-center justify-center rounded-full'>
-                  <p className='text-white text-[10px]'>
-                    {filteres.isComplete !== null ? filteres.category.length + 1 : filteres.category.length}
-                  </p>
-                </div>
-              )}
-            </Button>
-          </PopoverTrigger>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <PopoverTrigger asChild>
+                <Button variant='ghost' size='icon' className='relative'>
+                  {isAnyFilterActive ? <FilterXIcon /> : <FilterIcon />}
+                  {isAnyFilterActive && (
+                    <div className='absolute bottom-0 right-0 bg-red-600 size-4 flex items-center justify-center rounded-full'>
+                      <p className='text-white text-[10px]'>
+                        {filteres.isComplete !== null ? filteres.category.length + 1 : filteres.category.length}
+                      </p>
+                    </div>
+                  )}
+                </Button>
+              </PopoverTrigger>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Фильтры</p>
+            </TooltipContent>
+          </Tooltip>
           <PopoverContent className='space-y-3'>
             <div className='divide-y'>
               <h3 className='text-center text-sm pb-3'>Категории</h3>
