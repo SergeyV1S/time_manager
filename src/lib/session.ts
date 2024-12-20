@@ -27,7 +27,7 @@ export const decrypt = async (session: string | undefined = "") => {
     });
     return payload;
   } catch (error: any) {
-    console.log("Failed to verify session", error);
+    return error.code;
   }
 };
 
@@ -48,6 +48,7 @@ export const createSession = async (uid: string, isAdmin: boolean, name: string)
 export const updateSession = async () => {
   const session = (await cookies()).get("session")?.value;
   const payload = await decrypt(session);
+  console.log("f");
 
   if (!session || !payload) {
     return null;

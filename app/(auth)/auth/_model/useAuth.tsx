@@ -58,9 +58,9 @@ export const useAuth = () => {
       }
 
       if (result.data.message.isAdmin) {
-        router.push(paths.ADMIN);
+        router.replace(paths.ADMIN);
       } else {
-        router.push(paths.TASKS);
+        router.replace(paths.TASKS);
       }
     } catch (error: any) {
       toast({
@@ -88,9 +88,9 @@ export const useAuth = () => {
         return;
       }
       if (result.data?.message.isAdmin) {
-        router.push(paths.ADMIN);
+        router.replace(paths.ADMIN);
       } else {
-        router.push(paths.TASKS);
+        router.replace(paths.TASKS);
       }
     } catch (error: any) {
       toast({
