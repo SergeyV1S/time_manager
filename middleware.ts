@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ERR_JWS_INVALID } from "@/lib/constants";
 import { paths } from "@/lib/constants";
 import type { ISessionPayload } from "@/lib/session";
