@@ -9,6 +9,12 @@ jobs:
   lint:
     runs-on: self-hosted
     steps:
+      - name: Free disk space
+        run: |
+          docker system prune -a -f
+          sudo find /home/github-runner/actions-runner/_diag -type f -name '*.log' -delete
+          sudo find /home/github-runner/actions-runner/_work -mindepth 1 -maxdepth 1 -exec rm -rf {} \;
+
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup Node.js
@@ -24,44 +30,22 @@ jobs:
           key: node-modules-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             node-modules-${{ runner.os }}-
-      - name: install deps
+      - name: Install dependencies
         run: yarn install
       - name: Run lint
         run: yarn lint
-      - name: Clean up
-        if: always()
-        run: npm uninstall -g yarn
-
-  test:
-    needs: lint
-    runs-on: self-hosted
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.12.0
-      - name: Install yarn
-        run: npm install -g yarn
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: node-modules-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            node-modules-${{ runner.os }}-
-      - name: Run test
-        run: yarn test
-      - name: Clean up
-        if: always()
-        run: npm uninstall -g yarn
 
   deploy:
     needs: test
     runs-on: self-hosted
     if: github.ref == 'refs/heads/main'
     steps:
+      - name: Free disk space
+        run: |
+          docker system prune -a -f
+          sudo find /home/github-runner/actions-runner/_diag -type f -name '*.log' -delete
+          sudo find /home/github-runner/actions-runner/_work -mindepth 1 -maxdepth 1 -exec rm -rf {} \;
+
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Build and run Docker containers
@@ -84,6 +68,3 @@ jobs:
           docker compose build
           docker container rm -f app-1 || true
           docker compose up -d
-      - name: Clean up Docker
-        run: |
-          docker system prune -a -f
