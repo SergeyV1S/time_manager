@@ -13,7 +13,7 @@ jobs:
         run: |
           docker system prune -a -f
           sudo find /home/github-runner/actions-runner/_diag -type f -name '*.log' -delete
-          sudo find /home/github-runner/actions-runner/_work -mindepth 1 -maxdepth 1 -exec rm -rf {} \;
+          sudo find /home/github-runner/actions-runner/_work -mindepth 1 -maxdepth 1 ! -name '_actions' -exec rm -rf {} \;
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -69,7 +69,7 @@ jobs:
         run: |
           docker system prune -a -f
           sudo find /home/github-runner/actions-runner/_diag -type f -name '*.log' -delete
-          sudo find /home/github-runner/actions-runner/_work -mindepth 1 -maxdepth 1 -exec rm -rf {} \;
+          sudo find /home/github-runner/actions-runner/_work -mindepth 1 -maxdepth 1 ! -name '_actions' -exec rm -rf {} \;
 
       - name: Checkout code
         uses: actions/checkout@v3
