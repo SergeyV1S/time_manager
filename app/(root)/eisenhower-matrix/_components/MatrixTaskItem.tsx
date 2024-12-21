@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { DeleteTask } from "@app/(root)/tasks/_components/DeleteTask";
 import type { ITask } from "@app/(root)/tasks/_types";

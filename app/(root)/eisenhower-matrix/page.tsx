@@ -7,9 +7,7 @@ import { cookies } from "next/headers";
 import { Card } from "@/components/ui/card";
 
 import type { ITask } from "../tasks/_types";
-import { MatrixCell } from "./_components/MatrixCell";
-import { matrixCell } from "./_constants";
-import { selectTasksForUrgencyAndImportans } from "./_lib/selectTasksForUrgencyAndImportans";
+import { MatrixDndContext } from "./_components";
 
 const EisenhowerMatrixPage = async () => {
   const cookie = (await cookies()).get("session")?.value || "";
@@ -20,9 +18,7 @@ const EisenhowerMatrixPage = async () => {
   return (
     <main className='container flex min-h-svh mt-12'>
       <Card className='w-full h-fit grid grid-cols-2 gap-5 p-5'>
-        {matrixCell.map((cell, index) => (
-          <MatrixCell tasks={selectTasksForUrgencyAndImportans(tasks, cell.urgency, cell.importance)} key={index} />
-        ))}
+        <MatrixDndContext tasks={tasks} />
       </Card>
     </main>
   );
