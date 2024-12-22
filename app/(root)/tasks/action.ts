@@ -3,13 +3,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import db from "@/db";
 
-import { revalidatePath } from "next/cache";
-
 import type { ITask, TCreateTaskForm } from "./_types";
 
 export const createTaskAction = async (body: TCreateTaskForm, tasksLenght: number) => {
   try {
-    await db.task.create({
+    const response = await db.task.create({
       data: {
         body: body.body,
         category: body.category,
@@ -21,9 +19,7 @@ export const createTaskAction = async (body: TCreateTaskForm, tasksLenght: numbe
       }
     });
 
-    revalidatePath("/tasks");
-
-    return { status: 200 };
+    return { data: response, status: 200 };
   } catch (error: any) {
     return error;
   }

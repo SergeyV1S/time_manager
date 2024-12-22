@@ -1,5 +1,3 @@
-"use client";
-
 import { Button, Input, Spinner, Textarea } from "@/components/ui";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
