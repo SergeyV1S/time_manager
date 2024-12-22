@@ -33,8 +33,6 @@ export const deleteTaskAction = async (taskUid: string) => {
   try {
     await db.task.delete({ where: { uid: taskUid } });
 
-    revalidatePath("/tasks");
-
     return { status: 200 };
   } catch (error: any) {
     return error;
@@ -44,8 +42,6 @@ export const deleteTaskAction = async (taskUid: string) => {
 export const updateTaskStatusAction = async (taskUid: string, isComplete: boolean) => {
   try {
     await db.task.update({ data: { isComplete: isComplete }, where: { uid: taskUid } });
-
-    revalidatePath("/tasks");
   } catch (error: any) {
     return error;
   }
@@ -61,8 +57,6 @@ export const updateTaskPositionAction = async (taskPositions: ITask[]) => {
     );
 
     await Promise.all(updatePromises);
-
-    revalidatePath("/tasks");
   } catch (error: any) {
     return error;
   }

@@ -1,26 +1,28 @@
+import { useTaskStore } from "@/store/task";
 import { useMemo, useState } from "react";
 
-import type { ETaskCategory, ITask } from "../_types";
+import type { ETaskCategory } from "../_types";
 
 interface IFilteresState {
   category: ETaskCategory[];
-  isComplete?: boolean | null; // null — для сброса фильтра
+  isComplete?: boolean | null;
 }
 
-export const useFilter = (tasks: ITask[]) => {
+export const useFilter = () => {
   const [filteres, setFilteres] = useState<IFilteresState>({ category: [], isComplete: null });
+  const { storedTasks } = useTaskStore((state) => state);
 
   const filterTask = useMemo(() => {
     if (filteres.category.length === 0 && filteres.isComplete === null) {
-      return tasks;
+      return storedTasks;
     }
 
-    return tasks.filter((task) => {
+    return storedTasks.filter((task) => {
       const matchesCategory = filteres.category.length === 0 || filteres.category.includes(task.category);
       const matchesStatus = filteres.isComplete === null || task.isComplete === filteres.isComplete;
       return matchesCategory && matchesStatus;
     });
-  }, [tasks, filteres]);
+  }, [storedTasks, filteres]);
 
   const filterByCategory = (category: ETaskCategory) => {
     setFilteres((prev) => ({

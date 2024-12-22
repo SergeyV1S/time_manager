@@ -1,6 +1,7 @@
 import { DragIcon } from "@/icons";
 import { translateCategory, translateImportance, translateUrgency } from "@/lib/translateCategory";
 import { cn } from "@/lib/utils";
+import { updateTaskStatusActionCreator, useTaskStore } from "@/store/task";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Check, PencilIcon } from "lucide-react";
@@ -8,11 +9,12 @@ import { Check, PencilIcon } from "lucide-react";
 import { Button, HoverCard, HoverCardContent, HoverCardTrigger, Label } from "@/components/ui";
 
 import type { ITask } from "../_types";
-import { updateTaskStatusAction } from "../action";
 import { DeleteTask } from "./DeleteTask";
 
 export const TaskItem = ({ uid, body, category, isComplete, urgency, importance }: ITask) => {
-  const updateTaskStatus = async () => updateTaskStatusAction(uid, !isComplete);
+  const dispatch = useTaskStore((state) => state.dispatch);
+
+  const updateTaskStatus = async () => await updateTaskStatusActionCreator(uid, !isComplete)(dispatch);
 
   const handleStopPropagation = (e: React.MouseEvent) => {
     e.stopPropagation();
