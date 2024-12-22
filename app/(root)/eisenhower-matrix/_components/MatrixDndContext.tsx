@@ -1,43 +1,24 @@
 "use client";
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { SET_SELECTED_TASK, SET_TASKS, updateTaskUrgencyAndImportanceActionCreator, useTaskStore } from "@/store/task";
 import type { ITask } from "@app/(root)/tasks/_types";
 import type { DragEndEvent, DragOverEvent, DragStartEvent } from "@dnd-kit/core";
-import {
-  DndContext,
-  DragOverlay,
-  KeyboardSensor,
-  PointerSensor,
-  rectIntersection,
-  useSensor,
-  useSensors
-} from "@dnd-kit/core";
-import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import { DndContext, DragOverlay, PointerSensor, rectIntersection, useSensor, useSensors } from "@dnd-kit/core";
 import { useEffect } from "react";
 
 import { matrixCell } from "../_constants";
 import { selectTasksForUrgencyAndImportans } from "../_lib/selectTasksForUrgencyAndImportans";
-import {
-  SET_SELECTED_TASK,
-  SET_TASKS,
-  updateTaskUrgencyAndImportanceActionCreater,
-  useEisenhowerMatrixStore
-} from "../_store";
 import type { IMatrixCell } from "../_types";
 import { MatrixCell } from "./MatrixCell";
 import { MatrixTaskItem } from "./MatrixTaskItem";
 
 export const MatrixDndContext = ({ tasks }: { tasks: ITask[] }) => {
-  const { selectedTask, storedTasks, dispatch } = useEisenhowerMatrixStore((state) => state);
+  const { selectedTask, storedTasks, dispatch } = useTaskStore((state) => state);
 
   useEffect(() => dispatch({ type: SET_TASKS, payload: tasks }), []);
 
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates
-    })
-  );
+  const sensors = useSensors(useSensor(PointerSensor));
 
   const handleDragEnd = async (e: DragEndEvent) => {
     if (!e.over) {
@@ -49,7 +30,7 @@ export const MatrixDndContext = ({ tasks }: { tasks: ITask[] }) => {
       : (e.over.data.current as IMatrixCell);
 
     if (typeof overElement === "string") return;
-    if (selectedTask) await updateTaskUrgencyAndImportanceActionCreater(selectedTask, overElement)(dispatch);
+    if (selectedTask) await updateTaskUrgencyAndImportanceActionCreator(selectedTask, overElement)(dispatch);
   };
 
   const handleDragOver = async (e: DragOverEvent) => {
@@ -82,17 +63,6 @@ export const MatrixDndContext = ({ tasks }: { tasks: ITask[] }) => {
           key={index}
         />
       ))}
-      {/* {storedTasks.length > 0 ? (
-        matrixCell.map((cell, index) => (
-          <MatrixCell
-            cell={cell}
-            tasks={selectTasksForUrgencyAndImportans(storedTasks, cell.urgency, cell.importance)}
-            key={index}
-          />
-        ))
-      ) : (
-        <Spinner />
-      )} */}
       <DragOverlay>{selectedTask ? <MatrixTaskItem {...selectedTask!} /> : null}</DragOverlay>
     </DndContext>
   );

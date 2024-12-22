@@ -1,9 +1,9 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { updateTaskStatusActionCreator, useTaskStore } from "@/store/task";
 import { DeleteTask } from "@app/(root)/tasks/_components/DeleteTask";
 import type { ITask } from "@app/(root)/tasks/_types";
-import { updateTaskStatusAction } from "@app/(root)/tasks/action";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Check } from "lucide-react";
@@ -11,7 +11,9 @@ import { Check } from "lucide-react";
 import { Label } from "@/components/ui";
 
 export const MatrixTaskItem = ({ uid, body, isComplete }: ITask) => {
-  const updateTaskStatus = async () => updateTaskStatusAction(uid, !isComplete);
+  const dispatch = useTaskStore((state) => state.dispatch);
+
+  const updateTaskStatus = async () => await updateTaskStatusActionCreator(uid, !isComplete)(dispatch);
 
   const handleStopPropagation = (e: React.MouseEvent) => {
     e.stopPropagation();

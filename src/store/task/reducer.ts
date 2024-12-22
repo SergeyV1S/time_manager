@@ -1,7 +1,7 @@
 import { SET_SELECTED_TASK, SET_TASKS, UPDATE_TASK_URGENCY_AND_IMPORTANCE } from "./actions";
-import type { IMatrixState, TEisenhowerMatrixStoreActions } from "./types";
+import type { ITaskState, TTaskStoreActions } from "./types";
 
-export const eisenhowerMatrixReducer = (state: IMatrixState, action: TEisenhowerMatrixStoreActions): IMatrixState => {
+export const eisenhowerMatrixReducer = (state: ITaskState, action: TTaskStoreActions): ITaskState => {
   switch (action.type) {
     case SET_TASKS:
       return { ...state, storedTasks: action.payload };
@@ -14,6 +14,7 @@ export const eisenhowerMatrixReducer = (state: IMatrixState, action: TEisenhower
           task.uid === action.payload.uid ? { ...task, ...action.payload } : task
         )
       };
+
     default:
       return state;
   }

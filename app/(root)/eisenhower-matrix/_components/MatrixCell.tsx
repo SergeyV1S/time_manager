@@ -1,13 +1,13 @@
 "use client";
 
+import { useTaskStore } from "@/store/task";
 import type { ITask } from "@app/(root)/tasks/_types";
 import { useDroppable } from "@dnd-kit/core";
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
 
 import { Spinner } from "@/components/ui";
 import { Card } from "@/components/ui/card";
 
-import { useEisenhowerMatrixStore } from "../_store";
 import type { IMatrixCell } from "../_types";
 import { MatrixTaskItem } from "./MatrixTaskItem";
 
@@ -18,7 +18,7 @@ interface IMatrixCellProps {
 
 export const MatrixCell = ({ tasks, cell }: IMatrixCellProps) => {
   const { setNodeRef } = useDroppable({ id: cell.id, data: cell });
-  const { storedTasks } = useEisenhowerMatrixStore((state) => state);
+  const { storedTasks } = useTaskStore((state) => state);
 
   return (
     <Card
@@ -32,7 +32,7 @@ export const MatrixCell = ({ tasks, cell }: IMatrixCellProps) => {
       dark:[&::-webkit-scrollbar-track]:bg-slate-600 
       dark:[&::-webkit-scrollbar-thumb]:bg-slate-800'
     >
-      <SortableContext strategy={verticalListSortingStrategy} items={tasks.map((task) => task.uid)}>
+      <SortableContext strategy={rectSortingStrategy} items={tasks.map((task) => task.uid)}>
         {storedTasks.length > 0 ? (
           tasks.length > 0 ? (
             tasks.map((task) => <MatrixTaskItem {...task} key={task.uid} />)
