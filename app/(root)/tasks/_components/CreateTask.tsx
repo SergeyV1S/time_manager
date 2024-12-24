@@ -15,7 +15,7 @@ interface ICreateTaskProps {
 export const CreateTask = ({ userUid }: ICreateTaskProps) => {
   const { dispatch, isModalOpen, storedTasks } = useTaskStore((state) => state);
 
-  const toggleCreateTaskModal = () => dispatch({ type: TOGGLE_MODAL, payload: true });
+  const toggleCreateTaskModal = () => dispatch({ type: TOGGLE_MODAL, payload: !isModalOpen });
 
   return (
     <Dialog open={isModalOpen} onOpenChange={toggleCreateTaskModal}>

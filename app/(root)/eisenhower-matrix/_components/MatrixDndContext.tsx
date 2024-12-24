@@ -7,6 +7,8 @@ import type { DragEndEvent, DragOverEvent, DragStartEvent } from "@dnd-kit/core"
 import { DndContext, DragOverlay, PointerSensor, rectIntersection, useSensor, useSensors } from "@dnd-kit/core";
 import { useEffect } from "react";
 
+import { Spinner } from "@/components/ui";
+
 import { matrixCell } from "../_constants";
 import { selectTasksForUrgencyAndImportans } from "../_lib/selectTasksForUrgencyAndImportans";
 import type { IMatrixCell } from "../_types";
@@ -47,6 +49,8 @@ export const MatrixDndContext = ({ tasks }: { tasks: ITask[] }) => {
 
   const handleDragStart = (e: DragStartEvent) =>
     dispatch({ type: SET_SELECTED_TASK, payload: storedTasks.find((task) => task.uid === e.active.id)! });
+
+  if (tasks.length > 0 && storedTasks.length === 0) return <Spinner />;
 
   return (
     <DndContext

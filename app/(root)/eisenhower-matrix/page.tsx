@@ -17,7 +17,7 @@ const EisenhowerMatrixPage = async () => {
 
   return (
     <main className='container flex min-h-svh mt-12'>
-      <Card className='w-full h-fit grid grid-cols-2 gap-5 p-5'>
+      <Card className='w-full min-h-[670px] h-fit grid grid-cols-2 gap-5 p-5 relative'>
         <MatrixDndContext tasks={tasks} />
       </Card>
     </main>

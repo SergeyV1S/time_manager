@@ -135,7 +135,7 @@ export const TasksWithFilter = ({ tasks, children }: ITasksWithFilterProps) => {
       </div>
 
       <div className='w-full max-w-[700px] divide-y divide-blue-300'>
-        {storedTasks.length > 0 ? (
+        {!(tasks.length > 0 && storedTasks.length === 0) ? (
           filterTask.length > 0 ? (
             <SortableContext strategy={verticalListSortingStrategy} items={filterTask.map((task) => task.uid)}>
               {filterTask.map((task) =>
