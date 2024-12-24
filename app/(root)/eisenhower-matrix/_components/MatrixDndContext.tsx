@@ -1,7 +1,13 @@
 "use client";
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { SET_SELECTED_TASK, SET_TASKS, updateTaskUrgencyAndImportanceActionCreator, useTaskStore } from "@/store/task";
+import {
+  SET_SELECTED_TASK,
+  SET_TASKS,
+  UPDATE_TASK_URGENCY_AND_IMPORTANCE,
+  updateTaskUrgencyAndImportanceActionCreator,
+  useTaskStore
+} from "@/store/task";
 import type { ITask } from "@app/(root)/tasks/_types";
 import type { DragEndEvent, DragOverEvent, DragStartEvent } from "@dnd-kit/core";
 import { DndContext, DragOverlay, PointerSensor, rectIntersection, useSensor, useSensors } from "@dnd-kit/core";
@@ -45,6 +51,16 @@ export const MatrixDndContext = ({ tasks }: { tasks: ITask[] }) => {
       : (e.over.data.current as IMatrixCell);
 
     if (typeof overElement === "string") return;
+
+    if (selectedTask)
+      dispatch({
+        type: UPDATE_TASK_URGENCY_AND_IMPORTANCE,
+        payload: {
+          ...selectedTask,
+          urgency: overElement.urgency,
+          importance: overElement.importance
+        }
+      });
   };
 
   const handleDragStart = (e: DragStartEvent) =>

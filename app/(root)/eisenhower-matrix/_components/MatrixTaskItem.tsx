@@ -4,8 +4,7 @@ import { cn } from "@/lib/utils";
 import { updateTaskStatusActionCreator, useTaskStore } from "@/store/task";
 import { DeleteTask } from "@app/(root)/tasks/_components/DeleteTask";
 import type { ITask } from "@app/(root)/tasks/_types";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
+import { useDraggable } from "@dnd-kit/core";
 import { Check } from "lucide-react";
 
 import { Label } from "@/components/ui";
@@ -19,7 +18,7 @@ export const MatrixTaskItem = ({ uid, body, isComplete }: ITask) => {
     e.stopPropagation();
   };
 
-  const { listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: uid });
+  const { listeners, setNodeRef, isDragging } = useDraggable({ id: uid });
 
   return (
     <div
@@ -29,7 +28,6 @@ export const MatrixTaskItem = ({ uid, body, isComplete }: ITask) => {
         isComplete && "opacity-60",
         isDragging ? "cursor-grabbing" : "cursor-grab"
       )}
-      style={{ transform: CSS.Transform.toString(transform), transition }}
       {...listeners}
     >
       <div className='flex items-center space-x-2 relative'>
