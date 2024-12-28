@@ -40,7 +40,7 @@ export default {
         sm: "calc(var(--radius) - 4px)"
       },
       fontFamily: {
-        sans: ["var(--font-lora)"]
+        sans: ["var(--font-inter)"]
       },
       keyframes: {
         "accordion-down": {

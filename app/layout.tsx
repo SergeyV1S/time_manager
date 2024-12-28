@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 
-import { Lora } from "next/font/google";
+import { Inter } from "next/font/google";
 
 import { Providers } from "@/components/Providers";
 
 import "./globals.css";
 
-const loraFont = Lora({
+const interFont = Inter({
   subsets: ["latin"],
-  variable: "--font-lora"
+  variable: "--font-inter",
+  weight: ["400", "500", "600", "700", "800", "900"]
 });
 
 export const metadata: Metadata = {
@@ -27,7 +28,7 @@ const RootLayout = ({
       <link rel='apple-touch-icon' href='/apple-touch-icon.png' />
       <meta name='theme-color' content='#000000' />
     </head>
-    <body className={`${loraFont.variable} bg-wgite dark:bg-slate-950 font-sans antialiased`}>
+    <body className={`${interFont.variable} bg-wgite dark:bg-slate-950 font-sans antialiased`}>
       <Providers>{children}</Providers>
     </body>
   </html>
