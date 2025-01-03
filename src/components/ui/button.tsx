@@ -16,14 +16,14 @@ const buttonVariants = cva(
         outline:
           "border border-slate-200 text-sm bg-white shadow-sm hover:bg-slate-100 hover:text-slate-900 dark:border-slate-800 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50",
         secondary:
-          "bg-slate-100 text-slate-900 text-sm shadow-sm hover:bg-slate-100/80 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-800/80",
+          "bg-blue-500 text-slate-900 text-sm shadow-sm hover:bg-slate-100/80 dark:bg-blue-800 dark:text-slate-50 dark:hover:bg-blue-600",
         ghost: "hover:bg-slate-100 text-sm hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
         link: "text-slate-900 px-[0px] text-lg no-underline relative dark:text-slate-50 before:content-[''] before:bottom-[2px] before:transition-all before:duration-200 before:left-0 before:absolute before:rounded-xl before:w-0 before:h-[2px] before:bg-slate-700 hover:before:w-full"
       },
       size: {
         default: "h-9 px-4 py-2",
         sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-10 rounded-md px-8",
+        lg: "h-14 rounded-md px-8 font-medium text-lg",
         icon: "h-9 w-9"
       }
     },

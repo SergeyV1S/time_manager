@@ -26,65 +26,65 @@ export const Header = async () => {
 
   return (
     <header className='border-b border-b-gray-400 py-4'>
-      <div className='px-8 flex items-center justify-between'>
-        <LogoIcon />
-        <div className=''>
-          {cookie ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Avatar>
-                  <AvatarImage src='https://github.com/shadcn.png' alt={"avatar"} />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className='w-56'>
-                <DropdownMenuLabel>{session?.name}</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
+      <div className='px-12 flex items-center justify-between'>
+        <Link href='/'>
+          <LogoIcon />
+        </Link>
+        {cookie ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar>
+                <AvatarImage src='https://github.com/shadcn.png' alt={"avatar"} />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className='w-56'>
+              <DropdownMenuLabel>{session?.name}</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem>
+                  <Link href={paths.PROFILE} className='flex items-center gap-2 rounded-sm text-sm outline-none'>
+                    <UserIcon size={16} /> Мой профиль
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href={paths.TASKS} className='flex items-center gap-2 rounded-sm text-sm outline-none'>
+                    <ClipboardList size={16} /> Мои задачи
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href={paths.MY_STATISTIC} className='flex items-center gap-2 rounded-sm text-sm outline-none'>
+                    <ChartColumn size={16} /> Моя статистика
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href={paths.SETTINGS} className='flex items-center gap-2 rounded-sm text-sm outline-none'>
+                    <Settings size={16} /> Настройки
+                  </Link>
+                </DropdownMenuItem>
+                {session?.isAdmin ? (
                   <DropdownMenuItem>
-                    <Link href={paths.PROFILE} className='flex items-center gap-2 rounded-sm text-sm outline-none'>
-                      <UserIcon size={16} /> Мой профиль
+                    <Link href={paths.ADMIN} className='flex items-center gap-2 rounded-sm text-sm outline-none'>
+                      <KeyRound size={16} /> Панель админа
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href={paths.TASKS} className='flex items-center gap-2 rounded-sm text-sm outline-none'>
-                      <ClipboardList size={16} /> Мои задачи
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href={paths.MY_STATISTIC} className='flex items-center gap-2 rounded-sm text-sm outline-none'>
-                      <ChartColumn size={16} /> Моя статистика
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href={paths.SETTINGS} className='flex items-center gap-2 rounded-sm text-sm outline-none'>
-                      <Settings size={16} /> Настройки
-                    </Link>
-                  </DropdownMenuItem>
-                  {session?.isAdmin ? (
-                    <DropdownMenuItem>
-                      <Link href={paths.ADMIN} className='flex items-center gap-2 rounded-sm text-sm outline-none'>
-                        <KeyRound size={16} /> Панель админа
-                      </Link>
-                    </DropdownMenuItem>
-                  ) : (
-                    ""
-                  )}
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <ThemeToggle />
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <LogoutButton />
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <Link href={paths.AUTH} className={buttonVariants({ variant: "link" })}>
-              Войти
-            </Link>
-          )}
-        </div>
+                ) : (
+                  ""
+                )}
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <ThemeToggle />
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <LogoutButton />
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <Link href={paths.AUTH} className={buttonVariants({ variant: "link" })}>
+            Войти
+          </Link>
+        )}
       </div>
     </header>
   );

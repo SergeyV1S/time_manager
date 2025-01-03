@@ -12,10 +12,10 @@ const RootLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => (
-  <>
+  <div className='bg-wgite dark:bg-slate-950'>
     <Header />
     {children}
-  </>
+  </div>
 );
 
 export default RootLayout;
