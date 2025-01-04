@@ -2,6 +2,7 @@
 
 import { paths } from "@/lib/constants";
 import { translateCategory } from "@/lib/translateCategory";
+import { cn } from "@/lib/utils";
 import { SET_TASKS, updateTaskPositionActionCreator, useTaskStore } from "@/store/task";
 import type { DragEndEvent } from "@dnd-kit/core";
 import { DndContext, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
@@ -145,7 +146,7 @@ export const TasksWithFilter = ({ tasks, children }: ITasksWithFilterProps) => {
                       <AccordionTrigger>
                         <TaskItem {...task} />
                       </AccordionTrigger>
-                      <AccordionContent className={task.isComplete ? "opacity-60" : ""}>
+                      <AccordionContent className={cn(task.isComplete ? "opacity-60" : "", "ml-12")}>
                         {task.description}
                       </AccordionContent>
                     </AccordionItem>

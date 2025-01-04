@@ -1,15 +1,7 @@
 "use client";
 
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import {
-  SET_SELECTED_TASK,
-  SET_TASKS,
-  UPDATE_TASK_URGENCY_AND_IMPORTANCE,
-  updateTaskUrgencyAndImportanceActionCreator,
-  useTaskStore
-} from "@/store/task";
+import { SET_TASKS, useTaskStore } from "@/store/task";
 import type { ITask } from "@app/(root)/tasks/_types";
-import type { DragEndEvent, DragOverEvent, DragStartEvent } from "@dnd-kit/core";
 import { DndContext, DragOverlay, PointerSensor, rectIntersection, useSensor, useSensors } from "@dnd-kit/core";
 import { useEffect } from "react";
 
@@ -17,7 +9,6 @@ import { Spinner } from "@/components/ui";
 
 import { matrixCell } from "../_constants";
 import { selectTasksForUrgencyAndImportans } from "../_lib/selectTasksForUrgencyAndImportans";
-import type { IMatrixCell } from "../_types";
 import { MatrixCell } from "./MatrixCell";
 import { MatrixTaskItem } from "./MatrixTaskItem";
 
@@ -26,56 +17,18 @@ export const MatrixDndContext = ({ tasks }: { tasks: ITask[] }) => {
 
   useEffect(() => dispatch({ type: SET_TASKS, payload: tasks }), []);
 
-  const sensors = useSensors(useSensor(PointerSensor));
-
-  const handleDragEnd = async (e: DragEndEvent) => {
-    if (!e.over) {
-      return;
-    }
-
-    const overElement = e.over.data.current?.sortable
-      ? (e.over.data.current.sortable.containerId as string)
-      : (e.over.data.current as IMatrixCell);
-
-    if (typeof overElement === "string") return;
-    if (selectedTask) await updateTaskUrgencyAndImportanceActionCreator(selectedTask, overElement)(dispatch);
-  };
-
-  const handleDragOver = async (e: DragOverEvent) => {
-    if (!e.over) {
-      return;
-    }
-
-    const overElement = e.over.data.current?.sortable
-      ? (e.over.data.current.sortable.containerId as string)
-      : (e.over.data.current as IMatrixCell);
-
-    if (typeof overElement === "string") return;
-
-    if (selectedTask)
-      dispatch({
-        type: UPDATE_TASK_URGENCY_AND_IMPORTANCE,
-        payload: {
-          ...selectedTask,
-          urgency: overElement.urgency,
-          importance: overElement.importance
-        }
-      });
-  };
-
-  const handleDragStart = (e: DragStartEvent) =>
-    dispatch({ type: SET_SELECTED_TASK, payload: storedTasks.find((task) => task.uid === e.active.id)! });
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5
+      }
+    })
+  );
 
   if (tasks.length > 0 && storedTasks.length === 0) return <Spinner />;
 
   return (
-    <DndContext
-      sensors={sensors}
-      collisionDetection={rectIntersection}
-      onDragEnd={handleDragEnd}
-      onDragOver={handleDragOver}
-      onDragStart={handleDragStart}
-    >
+    <DndContext sensors={sensors} collisionDetection={rectIntersection}>
       {matrixCell.map((cell, index) => (
         <MatrixCell
           cell={cell}
@@ -83,7 +36,7 @@ export const MatrixDndContext = ({ tasks }: { tasks: ITask[] }) => {
           key={index}
         />
       ))}
-      <DragOverlay>{selectedTask ? <MatrixTaskItem {...selectedTask!} /> : null}</DragOverlay>
+      <DragOverlay>{selectedTask ? <MatrixTaskItem {...selectedTask} /> : null}</DragOverlay>
     </DndContext>
   );
 };

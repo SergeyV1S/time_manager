@@ -38,7 +38,7 @@ export const TaskItem = ({ uid, body, category, isComplete, urgency, importance 
             <Label
               onClick={handleStopPropagation}
               htmlFor={uid}
-              className='whitespace-nowrap relative pl-6 flex items-center gap-2 h-9 cursor-pointer'
+              className='whitespace-nowrap relative pl-6 items-center gap-2 h-9 cursor-pointer inline-flex'
             >
               <input
                 type='checkbox'
@@ -54,10 +54,9 @@ export const TaskItem = ({ uid, body, category, isComplete, urgency, importance 
               <span className={isComplete ? "line-through" : ""}>{body}</span>
             </Label>
           </HoverCardTrigger>
-          <HoverCardContent className='grid grid-cols-2 grid-rows-2 gap-2 text-center py-2'>
+          <HoverCardContent className='flex flex-col justify-center items-center gap-2 text-center py-2'>
             <p className='col-span-2 text-sm'>{translateCategory(category)}</p>
-            <p>{translateUrgency(urgency)}</p>
-            <p>{translateImportance(importance)}</p>
+            <p>{`${translateUrgency(urgency)}/${translateImportance(importance)}`}</p>
           </HoverCardContent>
         </HoverCard>
       </div>
