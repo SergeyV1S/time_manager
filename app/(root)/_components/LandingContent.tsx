@@ -2,39 +2,16 @@
 
 import { MainLangingIcon } from "@/icons";
 import { ArrowDown } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 import { Button } from "@/components/ui";
 
+import { DynamicWidthContainer } from "./DynamicWidthContainer";
+
 export const LandingContent = () => {
-  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const abilitiesSectionRef = useRef<HTMLDivElement | null>(null);
   const mainRef = useRef<HTMLDivElement | null>(null);
-
-  const scrollToOurAbilitiesSection = () => sectionRef.current?.scrollIntoView({ behavior: "smooth" });
-
-  const ourAbilitiesSectionScrollHandler = () => {
-    const maxWidth = window.innerWidth;
-    const initialWidth = maxWidth - maxWidth * 0.9;
-
-    return () => {
-      if (!sectionRef.current) return;
-
-      const sectionTop = sectionRef.current.getBoundingClientRect().top;
-
-      const closeness = Math.max(0, 1 - sectionTop / window.innerHeight);
-
-      const newWidth = Math.round(initialWidth + (maxWidth - initialWidth) * closeness);
-
-      sectionRef.current.style.width = `${newWidth}px`;
-    };
-  };
-
-  const ourAbilitiesSectionScrollHandlerWithEnv = ourAbilitiesSectionScrollHandler();
-
-  useEffect(() => {
-    window.addEventListener("scroll", ourAbilitiesSectionScrollHandlerWithEnv);
-    return () => window.removeEventListener("scroll", ourAbilitiesSectionScrollHandlerWithEnv);
-  }, []);
+  const scrollToOurAbilitiesSection = () => abilitiesSectionRef.current?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <div ref={mainRef} className='flex items-center justify-between flex-col'>
@@ -56,19 +33,46 @@ export const LandingContent = () => {
         </div>
         <MainLangingIcon width={600} height={450} />
       </div>
-      <section
-        ref={sectionRef}
-        className='bg-slate-900 h-fit rounded-3xl transform transition-all duration-200 w-[90%]'
-      >
+      <DynamicWidthContainer abilitiesSectionRef={abilitiesSectionRef} className='dark:bg-slate-900'>
         <div className='p-10 space-y-6 container'>
           <h2 className='text-3xl font-semibold text-center'>Наши возможности</h2>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi enim repellendus provident nobis autem quos
-            libero, praesentium itaque et dicta quo adipisci distinctio officiis, blanditiis consequatur officia
-            inventore porro accusantium!
-          </p>
+          <div className='flex items-center'>
+            <p className='basis-1/2'>Создайте свой список задач использую удобный интефрейс (фото тудушки)</p>
+          </div>
+          <div className='flex items-center'>
+            <p className='basis-1/2'>
+              Грамотно делегируйте задачи по их важности и срочности с помощью Матрицы Эйзенхауэра
+            </p>
+          </div>
+          <div className='flex items-center'>
+            <p>Отслеживайте свою активность по выбранному периоду в разделе &quot;Статистика&quot;</p>
+          </div>
+          <div className='flex items-center'>
+            <p className='basis-1/2'>Ставьте себе цели и смотрите как вы к ним приближаетесь!</p>
+          </div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor distinctio tenetur, nobis libero numquam modi!
+          Necessitatibus facilis corrupti fugiat laborum placeat repellendus, soluta reprehenderit dolore consectetur
+          laudantium culpa mollitia voluptate!Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor distinctio
+          tenetur, nobis libero numquam modi! Necessitatibus facilis corrupti fugiat laborum placeat repellendus, soluta
+          reprehenderit dolore consectetur laudantium culpa mollitia voluptate!Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Dolor distinctio tenetur, nobis libero numquam modi! Necessitatibus facilis corrupti fugiat
+          laborum placeat repellendus, soluta reprehenderit dolore consectetur laudantium culpa mollitia voluptate!Lorem
+          ipsum dolor sit amet consectetur adipisicing elit. Dolor distinctio tenetur, nobis libero numquam modi!
+          Necessitatibus facilis corrupti fugiat laborum placeat repellendus, soluta reprehenderit dolore consectetur
+          laudantium culpa mollitia voluptate!Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor distinctio
+          tenetur, nobis libero numquam modi! Necessitatibus facilis corrupti fugiat laborum placeat repellendus, soluta
+          reprehenderit dolore consectetur laudantium culpa mollitia voluptate!Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Dolor distinctio tenetur, nobis libero numquam modi! Necessitatibus facilis corrupti fugiat
+          laborum placeat repellendus, soluta reprehenderit dolore consectetur laudantium culpa mollitia voluptate!Lorem
+          ipsum dolor sit amet consectetur adipisicing elit. Dolor distinctio tenetur, nobis libero numquam modi!
+          Necessitatibus facilis corrupti fugiat laborum placeat repellendus, soluta reprehenderit dolore consectetur
+          laudantium culpa mollitia voluptate!Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor distinctio
+          tenetur, nobis libero numquam modi! Necessitatibus facilis corrupti fugiat laborum placeat repellendus, soluta
+          reprehenderit dolore consectetur laudantium culpa mollitia voluptate!Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Dolor distinctio tenetur, nobis libero numquam modi! Necessitatibus facilis corrupti fugiat
+          laborum placeat repellendus, soluta reprehenderit dolore consectetur laudantium culpa mollitia voluptate!
         </div>
-      </section>
+      </DynamicWidthContainer>
     </div>
   );
 };

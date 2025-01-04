@@ -1,7 +1,7 @@
 import { LandingContent } from "./_components/LandingContent";
 
 const HomePage = () => (
-  <main className='pt-10 space-y-10'>
+  <main className='mt-12 space-y-10'>
     <LandingContent />
   </main>
 );
