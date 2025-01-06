@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@/hooks";
 import { paths } from "@/lib/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";

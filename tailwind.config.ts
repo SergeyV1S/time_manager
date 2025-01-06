@@ -23,15 +23,13 @@ export default {
   darkMode: ["class"],
   content: ["./app/**/*.{js,ts,jsx,tsx,mdx}", "./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1440px",
-        xl: "1280px",
-        lg: "768px",
-        mobile: "410px"
-      }
+    screens: {
+      xs: "410px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1440px"
     },
     extend: {
       borderRadius: {
@@ -41,6 +39,9 @@ export default {
       },
       fontFamily: {
         sans: ["var(--font-inter)"]
+      },
+      boxShadow: {
+        landingPhotoDark: "-3px -3px 30px 0 rgba(71, 85, 105, 0.25), 3px 3px 30px 0 rgba(71, 85, 105, 0.25)"
       },
       keyframes: {
         "accordion-down": {

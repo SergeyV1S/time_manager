@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@/hooks";
 import type { IMatrixCell } from "@app/(root)/eisenhower-matrix/_types";
 import { updateTaskUrhencyAndImportance } from "@app/(root)/eisenhower-matrix/action";
 import { reorderTasks } from "@app/(root)/tasks/_lib/reorderTask";
