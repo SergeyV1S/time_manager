@@ -3,19 +3,22 @@
 import { LogoIcon, MainLangingIcon } from "@/icons";
 import { cn } from "@/lib/utils";
 import { ArrowDown } from "lucide-react";
-import { Suspense, useRef } from "react";
+import { useRef } from "react";
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Button, Spinner, buttonVariants } from "@/components/ui";
+import { Button, Skeleton, buttonVariants } from "@/components/ui";
 
-import MatrixImg from "/public/app-images/matrix.jpg";
-import TaskPageImg from "/public/app-images/taskpage.jpg";
+import CompletedTaskImg from "/public/app-images/completedtask.webp";
+import MatrixImg from "/public/app-images/matrix.webp";
+import RegPageImg from "/public/app-images/reg.webp";
+import TaskPageImg from "/public/app-images/taskpage.webp";
 
 const DynamicWidthContainer = dynamic(() => import("./DynamicWidthContainer"), {
-  ssr: false
+  ssr: false,
+  loading: () => <Skeleton className='w-[90%] h-screen container rounded-3xl mt-12' />
 });
 
 export const LandingContent = () => {
@@ -45,118 +48,116 @@ export const LandingContent = () => {
         </div>
         <MainLangingIcon className='w-[45vw] max-md:hidden' />
       </div>
-      <Suspense fallback={<Spinner />}>
-        <DynamicWidthContainer
-          abilitiesSectionRef={abilitiesSectionRef}
-          className='dark:bg-slate-900 border dark:border-slate-600'
-        >
-          <div className='p-10 space-y-24 container text-xl max-lg:text-lg max-md:text-base'>
-            <h2 className='text-3xl font-semibold text-center'>Наши возможности</h2>
+      <DynamicWidthContainer
+        abilitiesSectionRef={abilitiesSectionRef}
+        className='dark:bg-slate-900 border dark:border-slate-600'
+      >
+        <div className='p-10 space-y-24 container text-xl max-lg:text-lg max-md:text-base'>
+          <h2 className='text-3xl font-semibold text-center'>Наши возможности</h2>
 
-            <div className='flex justify-center gap-10 max-md:flex-col max-md:items-center'>
-              <p className='md:w-[36vw] max-md:text-center'>
-                <strong>Интуитивно понятный интерфейс</strong> Создавайте, редактируйте и управляйте задачами легко и
-                быстро. Ваши планы — в одном месте, доступные в любой момент!
-              </p>
-              <Image
-                src={MatrixImg}
-                alt='Task'
-                width={400}
-                height={200}
-                className='rounded-xl shadow-md dark:shadow-landingPhotoDark md:w-[36vw] md:h-[18vw]'
-              />
-            </div>
-
-            <div className='flex justify-center gap-10 max-md:flex-col-reverse max-md:items-center'>
-              <Image
-                src={TaskPageImg}
-                alt='Task'
-                width={300}
-                height={300}
-                className='rounded-xl shadow-md dark:shadow-landingPhotoDark md:size-[30vw]'
-              />
-              <p className='md:w-[36vw] max-md:text-center'>
-                <strong>Эффективное управление задачами</strong> Расставляйте приоритеты с помощью Матрицы Эйзенхауэра и
-                достигайте результатов быстрее. Важное — вперед!
-              </p>
-            </div>
-
-            <div className='flex justify-center gap-10 max-md:flex-col max-md:items-center'>
-              <p className='md:w-[36vw] max-md:text-center'>
-                <strong>Полная аналитика и статистика</strong> Отслеживайте свою продуктивность, анализируйте прогресс и
-                настраивайте стратегию для максимального результата.
-              </p>
-              <Image
-                src={TaskPageImg}
-                alt='Task'
-                width={300}
-                height={300}
-                className='rounded-xl shadow-md dark:shadow-landingPhotoDark md:size-[30vw]'
-              />
-            </div>
-
-            <div className='flex justify-center gap-10 max-md:flex-col-reverse max-md:items-center'>
-              <Image
-                src={TaskPageImg}
-                alt='Task'
-                width={300}
-                height={300}
-                className='rounded-xl shadow-md dark:shadow-landingPhotoDark md:size-[30vw]'
-              />
-              <p className='md:w-[36vw] max-md:text-center'>
-                <strong>Достижение целей с удовольствием</strong> Ставьте амбициозные цели, следите за прогрессом и
-                празднуйте каждую победу. Ваша мотивация — наш приоритет!
-              </p>
-            </div>
+          <div className='flex justify-center gap-10 max-md:flex-col max-md:items-center'>
+            <p className='md:w-[36vw] max-md:text-center'>
+              <strong>Интуитивно понятный интерфейс</strong> Создавайте, редактируйте и управляйте задачами легко и
+              быстро. Ваши планы — в одном месте, доступные в любой момент!
+            </p>
+            <Image
+              src={MatrixImg}
+              alt='Task'
+              width={400}
+              height={200}
+              className='rounded-xl shadow-md dark:shadow-landingPhotoDark md:w-[36vw] md:h-[18vw]'
+            />
           </div>
-          <DynamicWidthContainer abilitiesSectionRef={howToUseItSectionRef} className='dark:bg-slate-800'>
-            <div className='p-10 space-y-24 container text-xl max-lg:text-lg max-md:text-base'>
-              <h2 className='text-3xl font-semibold text-center'>Как эти пользоваться?</h2>
 
-              <ul className='space-y-24'>
-                <li className='flex justify-center gap-10 max-md:flex-col max-md:items-center'>
-                  <p className='md:w-[36vw] max-md:text-center'>
-                    <strong>1.</strong> Пройдите регистрацию и создайте учетную запись на платформе
-                  </p>
-                  <Image
-                    src={MatrixImg}
-                    alt='Task'
-                    width={400}
-                    height={400}
-                    className='rounded-xl shadow-md dark:shadow-landingPhotoDark md:w-[36vw] md:h-[18vw]'
-                  />
-                </li>
+          <div className='flex justify-center gap-10 max-md:flex-col-reverse max-md:items-center'>
+            <Image
+              src={TaskPageImg}
+              alt='Task'
+              width={300}
+              height={300}
+              className='rounded-xl shadow-md dark:shadow-landingPhotoDark md:size-[30vw]'
+            />
+            <p className='md:w-[36vw] max-md:text-center'>
+              <strong>Эффективное управление задачами</strong> Расставляйте приоритеты с помощью Матрицы Эйзенхауэра и
+              достигайте результатов быстрее. Важное — вперед!
+            </p>
+          </div>
 
-                <li className='flex justify-center gap-10 max-md:flex-col max-md:items-center'>
-                  <p className='md:w-[36vw] max-md:text-center'>
-                    <strong>2.</strong> Создайте и выполните свою первую задачу
-                  </p>
-                  <Image
-                    src={TaskPageImg}
-                    alt='Task'
-                    width={400}
-                    height={200}
-                    className='rounded-xl shadow-md dark:shadow-landingPhotoDark md:w-[36vw] md:h-[18vw]'
-                  />
-                </li>
+          <div className='flex justify-center gap-10 max-md:flex-col max-md:items-center'>
+            <p className='md:w-[36vw] max-md:text-center'>
+              <strong>Полная аналитика и статистика</strong> Отслеживайте свою продуктивность, анализируйте прогресс и
+              настраивайте стратегию для максимального результата.
+            </p>
+            <Image
+              src={TaskPageImg}
+              alt='Task'
+              width={300}
+              height={300}
+              className='rounded-xl shadow-md dark:shadow-landingPhotoDark md:size-[30vw]'
+            />
+          </div>
 
-                <li className='flex justify-center gap-10 max-md:flex-col max-md:items-center'>
-                  <p className='md:w-[36vw] max-md:text-center'>
-                    <strong>3.</strong> Зайдите в раздел статистики и восхотитесь своим достижением!
-                  </p>
-                  <Image
-                    src={MatrixImg}
-                    alt='Task'
-                    width={400}
-                    height={400}
-                    className='rounded-xl shadow-md dark:shadow-landingPhotoDark md:w-[36vw] md:h-[18vw]'
-                  />
-                </li>
-              </ul>
-            </div>
-          </DynamicWidthContainer>
+          <div className='flex justify-center gap-10 max-md:flex-col-reverse max-md:items-center'>
+            <Image
+              src={TaskPageImg}
+              alt='Task'
+              width={300}
+              height={300}
+              className='rounded-xl shadow-md dark:shadow-landingPhotoDark md:size-[30vw]'
+            />
+            <p className='md:w-[36vw] max-md:text-center'>
+              <strong>Достижение целей с удовольствием</strong> Ставьте амбициозные цели, следите за прогрессом и
+              празднуйте каждую победу. Ваша мотивация — наш приоритет!
+            </p>
+          </div>
+        </div>
+        <DynamicWidthContainer abilitiesSectionRef={howToUseItSectionRef} className='dark:bg-slate-800'>
+          <div className='p-10 space-y-24 container text-xl max-lg:text-lg max-md:text-base'>
+            <h2 className='text-3xl font-semibold text-center'>Как эти пользоваться?</h2>
+
+            <ul className='space-y-24'>
+              <li className='flex justify-center gap-10 max-md:flex-col max-md:items-center'>
+                <p className='md:w-[36vw] max-md:text-center'>
+                  <strong>1.</strong> Пройдите регистрацию и создайте учетную запись на платформе
+                </p>
+                <Image
+                  src={RegPageImg}
+                  alt='Task'
+                  width={450}
+                  height={450}
+                  className='rounded-xl shadow-md dark:shadow-landingPhotoDark md:size-[35vw]'
+                />
+              </li>
+
+              <li className='flex justify-center gap-10 max-md:flex-col max-md:items-center'>
+                <p className='md:w-[36vw] max-md:text-center'>
+                  <strong>2.</strong> Создайте и выполните свою первую задачу
+                </p>
+                <Image
+                  src={CompletedTaskImg}
+                  alt='Task'
+                  width={400}
+                  height={130}
+                  className='rounded-xl shadow-md dark:shadow-landingPhotoDark md:w-[40vw] md:h-[13vw]'
+                />
+              </li>
+
+              <li className='flex justify-center gap-10 max-md:flex-col max-md:items-center'>
+                <p className='md:w-[36vw] max-md:text-center'>
+                  <strong>3.</strong> Зайдите в раздел статистики и восхотитесь своим достижением!
+                </p>
+                <Image
+                  src={RegPageImg}
+                  alt='Task'
+                  width={400}
+                  height={400}
+                  className='rounded-xl shadow-md dark:shadow-landingPhotoDark md:size-[35vw]'
+                />
+              </li>
+            </ul>
+          </div>
         </DynamicWidthContainer>
-      </Suspense>
+      </DynamicWidthContainer>
       <footer className='w-full bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200'>
         <div className='container mx-auto py-10 px-5'>
           <div className='flex flex-col md:flex-row items-center justify-between gap-6 md:gap-10 mb-6'>
@@ -174,7 +175,7 @@ export const LandingContent = () => {
 
           <div className='flex flex-col md:flex-row items-center justify-between text-sm'>
             <p>© 2025 Time Manager. Все права защищены.</p>
-            <div className='flex gap-4 mt-4 md:mt-0'>
+            <div className='flex gap-4 mt-4 md:mt-0 max-sm:flex-col max-sm:items-center'>
               <Link href='/' className={cn(buttonVariants({ variant: "link" }), "text-sm")}>
                 Политика конфиденциальности
               </Link>
