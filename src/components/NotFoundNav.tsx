@@ -13,15 +13,11 @@ export const NotFoundNav = () => {
 
   return (
     <nav aria-label='Навигация' className='flex items-center justify-center gap-2'>
-      <a
-        className={cn(buttonVariants({ variant: "link" }), "w-fit text-sm")}
-        onClick={() => router.back()}
-        role='button'
-      >
+      <a className={cn(buttonVariants({ variant: "link" }), "text-sm")} onClick={() => router.back()} role='button'>
         <ArrowLeftIcon />
         <span>Назад</span>
       </a>
-      <Link href='/' className={cn(buttonVariants({ variant: "link" }), "w-fit text-sm")}>
+      <Link href='/' className={cn(buttonVariants({ variant: "link" }), "text-sm")}>
         На главную
       </Link>
     </nav>

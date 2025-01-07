@@ -1,3 +1,5 @@
+"use client";
+
 import useIsMobile from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
@@ -7,7 +9,7 @@ interface IDynamicWidthContainerProps extends React.ComponentProps<"div"> {
   children: React.ReactNode;
 }
 
-export const DynamicWidthContainer = ({ abilitiesSectionRef, children, className }: IDynamicWidthContainerProps) => {
+const DynamicWidthContainer = ({ abilitiesSectionRef, children, className }: IDynamicWidthContainerProps) => {
   const isMobile = useIsMobile();
   const ourAbilitiesSectionScrollHandler = () => {
     const initialWidthPercent = 90;
@@ -39,7 +41,7 @@ export const DynamicWidthContainer = ({ abilitiesSectionRef, children, className
     <section
       ref={abilitiesSectionRef}
       className={cn(
-        "h-fit mt-12 rounded-3xl transform transition-all duration-200 flex items-center justify-center",
+        "h-fit mt-12 rounded-3xl transform transition-all duration-200 flex items-center justify-center flex-col",
         className
       )}
       style={{ width: "90%" }}
@@ -48,3 +50,5 @@ export const DynamicWidthContainer = ({ abilitiesSectionRef, children, className
     </section>
   );
 };
+
+export default DynamicWidthContainer;

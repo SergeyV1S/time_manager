@@ -18,7 +18,7 @@ const buttonVariants = cva(
         secondary:
           "bg-blue-500 text-slate-900 text-sm shadow-sm hover:bg-slate-100/80 dark:bg-blue-800 dark:text-slate-50 dark:hover:bg-blue-600",
         ghost: "hover:bg-slate-100 text-sm hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
-        link: "text-slate-900 px-[0px] text-lg no-underline relative dark:text-slate-50 before:content-[''] before:bottom-[2px] before:transition-all before:duration-200 before:left-0 before:absolute before:rounded-xl before:w-0 before:h-[2px] before:bg-slate-700 hover:before:w-full"
+        link: "text-slate-900 px-[0px] w-fit text-lg no-underline relative dark:text-slate-50 before:content-[''] before:bottom-[2px] before:transition-all before:duration-200 before:left-0 before:absolute before:rounded-xl before:w-0 before:h-[2px] before:bg-slate-700 hover:before:w-full"
       },
       size: {
         default: "h-9 px-4 py-2",
